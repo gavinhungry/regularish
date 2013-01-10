@@ -1,0 +1,6 @@
+/* no real styles yet! */
+
+textarea { width: 200px; height: 200px; }
+
+#output { width: 500px; height: 200px; border: 1px solid gray; }
+#output span { color: red; }
