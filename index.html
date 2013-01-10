@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+      ___           ___           ___           ___           ___       ___           ___                       ___           ___     
+     /\  \         /\  \         /\  \         /\__\         /\__\     /\  \         /\  \          ___        /\  \         /\__\    
+    /::\  \       /::\  \       /::\  \       /:/  /        /:/  /    /::\  \       /::\  \        /\  \      /::\  \       /:/  /    
+   /:/\:\  \     /:/\:\  \     /:/\:\  \     /:/  /        /:/  /    /:/\:\  \     /:/\:\  \       \:\  \    /:/\ \  \     /:/__/     
+  /::\~\:\  \   /::\~\:\  \   /:/  \:\  \   /:/  /  ___   /:/  /    /::\~\:\  \   /::\~\:\  \      /::\__\  _\:\~\ \  \   /::\  \ ___ 
+ /:/\:\ \:\__\ /:/\:\ \:\__\ /:/__/_\:\__\ /:/__/  /\__\ /:/__/    /:/\:\ \:\__\ /:/\:\ \:\__\  __/:/\/__/ /\ \:\ \ \__\ /:/\:\  /\__\
+ \/_|::\/:/  / \:\~\:\ \/__/ \:\  /\ \/__/ \:\  \ /:/  / \:\  \    \/__\:\/:/  / \/_|::\/:/  / /\/:/  /    \:\ \:\ \/__/ \/__\:\/:/  /
+    |:|::/  /   \:\ \:\__\    \:\ \:\__\    \:\  /:/  /   \:\  \        \::/  /     |:|::/  /  \::/__/      \:\ \:\__\        \::/  / 
+    |:|\/__/     \:\ \/__/     \:\/:/  /     \:\/:/  /     \:\  \       /:/  /      |:|\/__/    \:\__\       \:\/:/  /        /:/  /  
+    |:|  |        \:\__\        \::/  /       \::/  /       \:\__\     /:/  /       |:|  |       \/__/        \::/  /        /:/  /   
+     \|__|         \/__/         \/__/         \/__/         \/__/     \/__/         \|__|                     \/__/         \/__/    
+
+Name: Regularish (regularish.com)
+Date: Jan 2013
+Auth: Gavin Lloyd <gavinhungry@gmail.com>
+Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
+-->
+
+<html>
+  <head>
+    <title>Regularish: a JavaScript regular expression editor</title>
+    <link rel='stylesheet' type='text/css' href='css/regularish.css' />
+    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js '></script>
+    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min.js '></script>
+    <script type='application/javascript' src='js/regularish.js'></script>
+    <script type='application/javascript'>
+      $(function() { new Regularish.App(); });
+    </script>
+  </head>
+
+  <body>
+    <div id='regex'>
+      <input id='pattern' type='text' />
+      <input id='flags' type='text' />
+      <textarea id='string'></textarea>
+      <input id='error' type='text' />
+    </div>
+    
+    <div id='output'></div>
+  </body>
+</html>
