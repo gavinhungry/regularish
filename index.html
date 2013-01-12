@@ -27,7 +27,10 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
     <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min.js '></script>
     <script type='application/javascript' src='js/regularish.js'></script>
     <script type='application/javascript'>
-      $(function() { new Regularish.App(); });
+      $(function() {
+        Regularish.Template.preload(['groups']);
+        new Regularish.App();
+      });
     </script>
   </head>
 
@@ -37,8 +40,8 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
       <input id='flags' type='text' />
       <textarea id='string'></textarea>
       <input id='error' type='text' />
+      <div id='matches'></div>
+      <div id='groups'></div>
     </div>
-    
-    <div id='output'></div>
   </body>
 </html>

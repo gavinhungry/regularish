@@ -6,10 +6,39 @@ Regularish.App = Backbone.View.extend({
   el: 'body',
 
   initialize: function() {
-    this.regex = new Regularish.Regex();
+    this.regex = new Regularish.Regex({ pattern: '@([^;]*);[a-z]+#([^:]*):', flags: '', string: 'ij@something;joisadf#hashtag:zoix\nij@something2;joisadf#hashtag2:zoixij@something3;joisadf#hashtag3:zoix' });
     new Regularish.RegexView({ model: this.regex });
   }
 });
+
+
+
+Regularish.Template = (function() {
+  var templates = {};
+
+  // return a template from cache or fetch from the server and defer                                  
+  var load = function(id) {
+    var template = templates[id] || $.get('templates/' + id + '.html');                                                              
+    templates[id] = template;
+    return template;
+  };
+
+  return {
+    // load an array of templates into Template, returns nothing                                      
+    preload: function(id) {
+      _.each(id, load);
+    },
+
+    // pass a template to a callback function                            
+    get: function(id, callback) {
+      var template = load(id);
+      template.done(function(template) {
+        callback(template);
+      });
+    }
+  };
+})();
+
 
 
 
@@ -73,9 +102,12 @@ Regularish.RegexView = Backbone.View.extend({
     this.$error.val(regex.error);
     
     var strings = (regex.string).split('\n');
-    var output = '';
     
-    var matches = this.regexMatches();
+    var results = this.regexMatch();
+    var matches = results.matches;
+    var groups  = results.groups;    
+
+    var mOutput = '';
     for (var i = 0; i < matches.length; i++) {
       var lineMatches = matches[i];
       var string = strings[i];
@@ -83,70 +115,77 @@ Regularish.RegexView = Backbone.View.extend({
       // look for matches line-by-line
       for (var j = 0; j < lineMatches.length; j++) {
         var match = lineMatches[j];
-        output += string.slice(0, match.index);
-        output += '<span>' + string.slice(match.index, match.offset) + '</span>';
-        string = string.slice(match.offset);
+        mOutput += string.slice(0, match.from);
+        mOutput += '<span>' + string.slice(match.from, match.to) + '</span>';
+        string = string.slice(match.to);
       }
       
-      output += string + '<br>';
+      mOutput += string + '<br>';
     }
+
+    this.$matches.html(mOutput);
     
-    $('#output').html(output);
-    this.regexGroups();
-    
+    Regularish.Template.get('groups', function(template) {
+      var gOutput = _.template(template, { groups: groups });
+      this.$groups.html(gOutput);
+    }.bind(this));
   },
   
-  regexMatches: function() {
+  
+  
+  regexMatch: function() {
     var regex = this.model.attributes;
     var matches = [];
+    var groups = [];
    
     if (regex.re instanceof RegExp) {
+    
+      // work on the input line-by-line
       var strings = (regex.string).split('\n');
       var result;
       
       for (var i = 0; i < strings.length; i++) {
         var string = strings[i];
-        var results = [];
-      
-        while (result = regex.re.exec(string)) {
-          var index  = result.index;
-          var offset = index + result[0].length;
-          results.push({ index: index, offset: offset });
+        
+        // matches for just this line
+        var match = [];
+        var group = [];
 
-          if (offset === 0) { break; }
-          string = string.substr(offset);
+        while (result = regex.re.exec(string)) {
+          var from = result.index;
+          var to = from + result[0].length;
+
+          match.push({ from: from, to: to });
+          if ((regex.re.global || group.length === 0) && result.length > 0) {
+            group.push(_.filter(_.rest(result, 1), function(s) {
+              return s.length > 0;
+            }));
+          }
+          
+          if (to === 0) { break; }
+          string = string.substr(to);
+          regex.re.lastIndex = 0;
         }
         
-        matches.push(results);
+        // save matches and groups, reset lastIndex for next line
+        matches.push(match);
+        _.each(group, function(g) { groups.push(g); });
+        regex.re.lastIndex = 0;
       }
     }
     
-    return matches;
+    return { matches: matches, groups: groups };
   },
-  
-  regexGroups: function() {
-    var regex = this.model.attributes;
-    var groups = [];
-    
-    var strings = (regex.string).split('\n');
-    
-    for (var i = 0; i < strings.length; i++) {
-      var string = strings[i];
-      groups.push(string.match(regex.re));
-    }
-    
-    return groups;
-  },
-  
-  wrapResults: function(results) {
-  
-  },
+
+
   
   render: function() {
     this.$pattern = this.$('#pattern');
     this.$flags   = this.$('#flags');
     this.$string  = this.$('#string');
     this.$error   = this.$('#error');
+    this.$matches = this.$('#matches');
+    this.$groups  = this.$('#groups');
     
     this.updateView();
   }

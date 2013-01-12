@@ -1,0 +1,11 @@
+<ol class='group'>
+<% _.each(groups, function(group) { %>
+  <li>
+    <ol>
+      <% _.each(group, function(match) { %>
+        <li><%= match %></li>
+      <% }); %>
+    </ol>
+  </li>
+<% }); %>
+</ol>
