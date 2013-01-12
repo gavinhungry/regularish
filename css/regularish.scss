@@ -7,7 +7,7 @@ $monospace: 'Menlo', 'Consolas', monospace;
 $sans-serif: 'Ubuntu', 'Segoe UI', sans-serif;
 $font-size: 14px;
 
-/* --- [ Mix-ins ] ---------------------------------------------------------- */
+// --- [ Mix-ins ] -------------------------------------------------------------
 
 @mixin transition($property, $duration: 0.5s) {
   transition-property: $property;
@@ -20,10 +20,21 @@ $font-size: 14px;
   -o-transition-duration: $duration;
 }
 
-/* -------------------------------------------------------------------------- */
+// -----------------------------------------------------------------------------
 
 a {
   text-decoration: none;
+}
+
+.clear {
+  clear: both;
+}
+
+.noselect {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 
 body {
@@ -37,12 +48,59 @@ body {
 #tab {
   font-size: $font-size - 2px;
   float: right;
-  height: 10px;
+  height: 12px;
   margin-top: -26px;
-  margin-right: 8px;
-  padding: 8px;
+  margin-right: 32px;
+  padding: 6px;
   border-radius: 2px 2px 0 0;
-  background-color: $baseColor;
+  background-color: darken($baseColor, 25%);
+  color: lighten($baseColor, 10%);
+  text-shadow: 1px 1px 0 darken($baseColor, 35%);
+  cursor: pointer;
+  font-family: $sans-serif;
+  border-bottom: 2px solid darken($baseColor, 35%);
+  
+  &:hover {
+    background-color: darken($baseColor, 20%);
+    color: lighten($baseColor, 20%);
+  }
+}
+
+#drawer {
+  display: none;
+  border-bottom: 2px solid darken($baseColor, 35%);
+  border-radius: 2px 2px 0 0;
+  background-color: darken($baseColor, 25%);
+  width: $appWidth - 64px;
+  margin: auto;
+  padding: 8px;
+  
+  #reference {
+    display: none;
+    
+    table {
+      tr {
+      
+        td {
+        
+          color: lighten($baseColor, 20%);
+          text-shadow: 1px 1px 0 darken($baseColor, 40%);
+          padding: 4px;
+        
+          &:first-child {
+            width: 0;
+            font-family: $monospace;
+            font-weight: bold;
+            background-color: lighten($baseColor, 5%);
+            color: darken($baseColor, 45%);
+            text-shadow: none;
+          }
+          
+        }
+      
+      }
+    }
+  }
 }
 
 #header {
@@ -64,7 +122,7 @@ body {
 }
 
 #app {
-  margin: 1em 0;
+  margin: 0 0 1em;
   border-radius: 2px;
   box-shadow: 4px 4px 0 darken($baseColor, 45%);
   background-color: $baseColor;
@@ -92,7 +150,7 @@ input, textarea {
 #string {
   resize: vertical;
   margin-bottom: 3px;
-  height: 96px;
+  height: 128px;
 }
 
 #flags {
@@ -100,17 +158,53 @@ input, textarea {
 }
 
 #matches, #groups {
+  &:empty {
+    display: none;
+  }
+
+  border-radius: 2px;
+  margin-top: 4px;
+  padding: 6px;
+  color: lighten($baseColor, 40%);
+
+  overflow: auto;
   font-family: $monospace;
   line-height: $font-size + 6px;
+  background-color: darken($baseColor, 40%);
   
-    @include transition(#{'background, outline-color'}, 1s);
+  @include transition(height, 1s);
+
+  br:last-child {
+    display: none;
+  }
   
   span {
-    $bgColor: #CCC;
-    background-color: $bgColor;
-    outline: 1px solid darken(red, 5%);
+    white-space: pre;
+    background-color: mix($baseColor, #03F, 80%);
     padding: 1px 0;
+  }
+}
 
+ol.group {
+  counter-reset: item;
+  list-style-type: decimal;
+  
+  li:before {
+    content: 'Match ' counter(item, decimal);
+    counter-increment: item;
+  }
+  
+  ol {
+    margin-bottom: 1em;
+    counter-reset: item;
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+      
+    li:before {
+      content: counter(item, decimal) ': ';
+    }
   }
 }
 

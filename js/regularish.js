@@ -115,20 +115,21 @@ Regularish.RegexView = Backbone.View.extend({
       // look for matches line-by-line
       for (var j = 0; j < lineMatches.length; j++) {
         var match = lineMatches[j];
-        mOutput += string.slice(0, match.from);
-        var matchStr = string.slice(match.from, match.to);
+        mOutput += _.escape(string.slice(0, match.from));
+        var matchStr = _.escape(string.slice(match.from, match.to));
         if (matchStr.length > 0) { mOutput += '<span>' + matchStr + '</span>'; }
         string = string.slice(match.to);
       }
       
-      mOutput += string + '<br>';
+      mOutput += _.escape(string);
+      if (i > 0) { mOutput += '<br>'; }
     }
 
     this.$matches.html(mOutput);
     
     Regularish.Template.get('groups', function(template) {
       var gOutput = _.template(template, { groups: groups });
-      this.$groups.html(gOutput);
+      this.$groups.html(gOutput === '\n' ? '' : gOutput);
     }.bind(this));
   },
   
@@ -170,7 +171,9 @@ Regularish.RegexView = Backbone.View.extend({
         
         // save matches and groups, reset lastIndex for next line
         matches.push(match);
-        _.each(group, function(g) { groups.push(g); });
+        _.each(group, function(g) {
+          if (!_.isEmpty(g)) { groups.push(g); }
+        });
         regex.re.lastIndex = 0;
       }
     }
