@@ -6,7 +6,7 @@ Regularish.App = Backbone.View.extend({
   el: 'body',
 
   initialize: function() {
-    this.regex = new Regularish.Regex({ pattern: '@([^;]*);[a-z]+#([^:]*):', flags: '', string: 'ij@something;joisadf#hashtag:zoix\nij@something2;joisadf#hashtag2:zoixij@something3;joisadf#hashtag3:zoix' });
+    this.regex = new Regularish.Regex();
     new Regularish.RegexView({ model: this.regex });
   }
 });
