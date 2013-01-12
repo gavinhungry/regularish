@@ -14,9 +14,48 @@ var Regularish = (function() {
           pattern: '(\\/) (o,,o) (\\/)',
           string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
         });
+
+        this.router = new Regularish.Router();
+        this.router.on('route:load', function(pattern, flags, string) {
+          if (pattern === undefined || pattern === '_') { pattern = ''; }
+          if (flags   === undefined || flags   === '_') { flags = ''; }
+          if (string  === undefined || string  === '_') { string = ''; }
+
+          this.regex.set('pattern', decodeURIComponent(pattern));
+          this.regex.set('flags',   decodeURIComponent(flags));
+          this.regex.set('string',  decodeURIComponent(string));
+        }, this);
+        
+        Backbone.history.start();
+        this.render();
+      },
+      
+      render: function() {
+      
+        this.$('#permalink').on('click', function() {
+          var pattern = encodeURIComponent(this.regex.get('pattern'));
+          var flags   = encodeURIComponent(this.regex.get('flags'));
+          var string  = encodeURIComponent(this.regex.get('string'));
+          
+          if (pattern.length === 0) { pattern = '_'; }
+          if (flags.length   === 0) { flags   = '_'; }
+          if (string.length  === 0) { string  = '_'; }
+          
+          this.router.navigate(pattern + '/' + flags + '/' + string);
+        }.bind(this));
+      
         new Regularish.RegexView({ model: this.regex });
       }
     }),
+
+
+    /*
+     *
+     */
+    Router: Backbone.Router.extend({
+      routes: { ':pattern(/:flags)(/:string)': 'load' },
+    }),
+
 
     /*
      *
@@ -47,6 +86,7 @@ var Regularish = (function() {
       };
     })(), 
 
+
     /*
      *
      */
@@ -76,6 +116,7 @@ var Regularish = (function() {
         }
       }
     }),
+
 
     /*
      *
@@ -206,6 +247,7 @@ var Regularish = (function() {
     })
   };
 })();
+
 
 $(function() {
   Regularish.Template.preload(['groups']);
