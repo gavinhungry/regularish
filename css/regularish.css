@@ -1,8 +1,15 @@
 /* messy messy messy */
-/* --- [ Mix-ins ] ---------------------------------------------------------- */
-/* -------------------------------------------------------------------------- */
 a {
   text-decoration: none; }
+
+.clear {
+  clear: both; }
+
+.noselect {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none; }
 
 body {
   width: 800px;
@@ -14,12 +21,42 @@ body {
 #tab {
   font-size: 12px;
   float: right;
-  height: 10px;
+  height: 12px;
   margin-top: -26px;
-  margin-right: 8px;
-  padding: 8px;
+  margin-right: 32px;
+  padding: 6px;
   border-radius: 2px 2px 0 0;
-  background-color: #888888; }
+  background-color: #484848;
+  color: #a2a2a2;
+  text-shadow: 1px 1px 0 #2f2f2f;
+  cursor: pointer;
+  font-family: "Ubuntu", "Segoe UI", sans-serif;
+  border-bottom: 2px solid #2f2f2f; }
+  #tab:hover {
+    background-color: #555555;
+    color: #bbbbbb; }
+
+#drawer {
+  display: none;
+  border-bottom: 2px solid #2f2f2f;
+  border-radius: 2px 2px 0 0;
+  background-color: #484848;
+  width: 736px;
+  margin: auto;
+  padding: 8px; }
+  #drawer #reference {
+    display: none; }
+    #drawer #reference table tr td {
+      color: #bbbbbb;
+      text-shadow: 1px 1px 0 #222222;
+      padding: 4px; }
+      #drawer #reference table tr td:first-child {
+        width: 0;
+        font-family: "Menlo", "Consolas", monospace;
+        font-weight: bold;
+        background-color: #959595;
+        color: #151515;
+        text-shadow: none; }
 
 #header {
   margin: 1em 0; }
@@ -33,7 +70,7 @@ body {
         color: #c8c8c8; }
 
 #app {
-  margin: 1em 0;
+  margin: 0 0 1em;
   border-radius: 2px;
   box-shadow: 4px 4px 0 #151515;
   background-color: #888888;
@@ -57,26 +94,50 @@ input, textarea {
 #string {
   resize: vertical;
   margin-bottom: 3px;
-  height: 96px; }
+  height: 128px; }
 
 #flags {
   width: 128px; }
 
 #matches, #groups {
+  border-radius: 2px;
+  margin-top: 4px;
+  padding: 6px;
+  color: #eeeeee;
+  overflow: auto;
   font-family: "Menlo", "Consolas", monospace;
   line-height: 20px;
-  transition-property: background, outline-color;
+  background-color: #222222;
+  transition-property: height;
   transition-duration: 1s;
-  -webkit-transition-property: background, outline-color;
+  -webkit-transition-property: height;
   -webkit-transition-duration: 1s;
-  -moz-transition-property: background, outline-color;
+  -moz-transition-property: height;
   -moz-transition-duration: 1s;
-  -o-transition-property: background, outline-color;
+  -o-transition-property: height;
   -o-transition-duration: 1s; }
+  #matches:empty, #groups:empty {
+    display: none; }
+  #matches br:last-child, #groups br:last-child {
+    display: none; }
   #matches span, #groups span {
-    background-color: #cccccc;
-    outline: 1px solid #e60000;
+    white-space: pre;
+    background-color: #6c779f;
     padding: 1px 0; }
+
+ol.group {
+  counter-reset: item;
+  list-style-type: decimal; }
+  ol.group li:before {
+    content: "Match " counter(item, decimal);
+    counter-increment: item; }
+  ol.group ol {
+    margin-bottom: 1em;
+    counter-reset: item; }
+    ol.group ol:last-child {
+      margin-bottom: 0; }
+    ol.group ol li:before {
+      content: counter(item, decimal) ": "; }
 
 #footer {
   text-align: center;

@@ -22,7 +22,7 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
   <head>
     <title>Regularish: a JavaScript regular expression editor</title>
     <link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css' />
-    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps' />
+    <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps' />
     <link rel='stylesheet' type='text/css' href='css/regularish.css' />
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js '></script>
@@ -32,6 +32,12 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
       $(function() {
         Regularish.Template.preload(['groups']);
         new Regularish.App();
+        
+        $('#pattern').trigger('focus');
+        $('#tab').on('click', function() {
+          $('#reference').stop().animate({ opacity: 'toggle' }, 'fast');    
+          $('#drawer').stop().animate({ height: 'toggle' }, 'fast');
+        });
       });
     </script>
   </head>
@@ -41,10 +47,38 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
       <h1><a href='/'>Regularish</a></h1>
     </div>
 
-    <div id='tab'>Regex Quick Reference</div>
+    <div id='tab' class='noselect'>Regex Quick Reference</div>
   
     <div id='drawer'>
-    
+      <div id='reference'>
+        <table width='33%' style='float:left'>
+          <tr><td>[a-z]</td><td>Character from a to z</td></tr>
+          <tr><td>[0-9]</td><td>Digit from 0 to 9</td></tr>
+          <tr><td>[xyz]</td><td>x or y or z</td></tr>
+          <tr><td>[^x]</td><td>Any character except x</td></tr>
+          <tr><td>(ab|xy)</td><td>Match ab or xy</td></tr>
+          <tr><td>(...)</td><td>Capture group</td></tr>
+        </table>
+
+        <table width='33%' style='float:left'>
+          <tr><td>.</td><td>Any character</td></tr>
+          <tr><td>\w</td><td>A word character</td></tr>
+          <tr><td>\d</td><td>A digit</td></tr>
+          <tr><td>\s</td><td>A whitespace character</td></tr>
+          <tr><td>\b</td><td>Word boundry</td></tr>
+          <tr><td>\x47</td><td>Hex character 0x47</td></tr>
+        </table>
+        
+        <table width='33%' style='float:right'>
+          <tr><td>*</td><td>0 or more</td></tr>
+          <tr><td>+</td><td>1 or more</td></tr>
+          <tr><td>?</td><td>0 or 1</td></tr>
+          <tr><td>{4}</td><td>Exactly 4</td></tr>
+          <tr><td>{4,7}</td><td>Between 4 and 7</td></tr>
+          <tr><td>{4,}</td><td>4 or more</td></tr>
+        </table>
+        <div class='clear'></div>
+      </div>
     </div>
     
     <div id='app'>
@@ -53,7 +87,7 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
         <input id='flags' type='text' placeholder='Flags' />
         <textarea id='string' placeholder='Input Strings'></textarea>
         <input id='error' type='text' disabled placeholder='Issues and errors will be reported here' />
-        <div id='matches'></div>
+        <pre id='matches'></pre>
         <div id='groups'></div>
       </div>
     </div>
