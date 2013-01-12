@@ -21,10 +21,12 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
 <html>
   <head>
     <title>Regularish: a JavaScript regular expression editor</title>
+    <link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css' />
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps' />
     <link rel='stylesheet' type='text/css' href='css/regularish.css' />
-    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
-    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js '></script>
-    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min.js '></script>
+    <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+    <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js '></script>
+    <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min.js '></script>
     <script type='application/javascript' src='js/regularish.js'></script>
     <script type='application/javascript'>
       $(function() {
@@ -35,13 +37,31 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
   </head>
 
   <body>
-    <div id='regex'>
-      <input id='pattern' type='text' />
-      <input id='flags' type='text' />
-      <textarea id='string'></textarea>
-      <input id='error' type='text' />
-      <div id='matches'></div>
-      <div id='groups'></div>
+    <div id='header'>
+      <h1><a href='/'>Regularish</a></h1>
+    </div>
+
+    <div id='tab'>Regex Quick Reference</div>
+  
+    <div id='drawer'>
+    
+    </div>
+    
+    <div id='app'>
+      <div id='regex'>
+        <input id='pattern' type='text' placeholder='Regular Expression Pattern' />
+        <input id='flags' type='text' placeholder='Flags' />
+        <textarea id='string' placeholder='Input Strings'></textarea>
+        <input id='error' type='text' disabled placeholder='Issues and errors will be reported here' />
+        <div id='matches'></div>
+        <div id='groups'></div>
+      </div>
+    </div>
+    
+    <div id='footer'>
+      Created by <a href='https://gavinhungry.com/'>Gavin Lloyd</a> / <a href='https://twitter.com/gavinhungry'>@gavinhungry</a>.
+      Inspired by <a href='http://rubular.com'>Rubular</a>.
+      Source code freely available on <a href='https://github.com/gavinhungry/regularish'>GitHub</a>.
     </div>
   </body>
 </html>

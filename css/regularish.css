@@ -1,6 +1,86 @@
-/* no real styles yet! */
+/* messy messy messy */
+/* --- [ Mix-ins ] ---------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+a {
+  text-decoration: none; }
 
-textarea { width: 200px; height: 200px; }
+body {
+  width: 800px;
+  margin: auto;
+  background-color: #222222;
+  font-size: 14px;
+  overflow-y: scroll; }
 
-#matches, #groups { width: 500px; height: 200px; border: 1px solid gray; }
-#matches span, #groups span { color: red; }
+#tab {
+  font-size: 12px;
+  float: right;
+  height: 10px;
+  margin-top: -26px;
+  margin-right: 8px;
+  padding: 8px;
+  border-radius: 2px 2px 0 0;
+  background-color: #888888; }
+
+#header {
+  margin: 1em 0; }
+  #header h1 {
+    font-family: "Oleo Script Swash Caps", cursive;
+    font-size: 72px; }
+    #header h1 a {
+      color: #aeaeae;
+      text-shadow: 3px 3px 0 #090909; }
+      #header h1 a:hover {
+        color: #c8c8c8; }
+
+#app {
+  margin: 1em 0;
+  border-radius: 2px;
+  box-shadow: 4px 4px 0 #151515;
+  background-color: #888888;
+  padding: 8px; }
+
+input, textarea {
+  border-radius: 2px;
+  background-color: #eeeeee;
+  border: 2px solid #555555;
+  padding: 6px;
+  font-family: "Menlo", "Consolas", monospace;
+  font-size: 14px; }
+
+#pattern {
+  margin: 0 2px 2px 0;
+  width: 619px; }
+
+#error, #string {
+  width: 768px; }
+
+#string {
+  resize: vertical;
+  margin-bottom: 3px;
+  height: 96px; }
+
+#flags {
+  width: 128px; }
+
+#matches, #groups {
+  font-family: "Menlo", "Consolas", monospace;
+  line-height: 20px;
+  transition-property: background, outline-color;
+  transition-duration: 1s;
+  -webkit-transition-property: background, outline-color;
+  -webkit-transition-duration: 1s;
+  -moz-transition-property: background, outline-color;
+  -moz-transition-duration: 1s;
+  -o-transition-property: background, outline-color;
+  -o-transition-duration: 1s; }
+  #matches span, #groups span {
+    background-color: #cccccc;
+    outline: 1px solid #e60000;
+    padding: 1px 0; }
+
+#footer {
+  text-align: center;
+  color: #aeaeae;
+  text-shadow: 1px 1px 0 #090909; }
+  #footer a {
+    color: #99C; }

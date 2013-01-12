@@ -116,7 +116,8 @@ Regularish.RegexView = Backbone.View.extend({
       for (var j = 0; j < lineMatches.length; j++) {
         var match = lineMatches[j];
         mOutput += string.slice(0, match.from);
-        mOutput += '<span>' + string.slice(match.from, match.to) + '</span>';
+        var matchStr = string.slice(match.from, match.to);
+        if (matchStr.length > 0) { mOutput += '<span>' + matchStr + '</span>'; }
         string = string.slice(match.to);
       }
       

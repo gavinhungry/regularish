@@ -1,1 +1,125 @@
-/* no real styles yet! */
+/* messy messy messy */
+
+$appWidth: 800px;
+$baseColor: #888;
+
+$monospace: 'Menlo', 'Consolas', monospace;
+$sans-serif: 'Ubuntu', 'Segoe UI', sans-serif;
+$font-size: 14px;
+
+/* --- [ Mix-ins ] ---------------------------------------------------------- */
+
+@mixin transition($property, $duration: 0.5s) {
+  transition-property: $property;
+  transition-duration: $duration;
+  -webkit-transition-property: $property;
+  -webkit-transition-duration: $duration;
+  -moz-transition-property: $property;
+  -moz-transition-duration: $duration;
+  -o-transition-property: $property;
+  -o-transition-duration: $duration;
+}
+
+/* -------------------------------------------------------------------------- */
+
+a {
+  text-decoration: none;
+}
+
+body {
+  width: $appWidth;
+  margin: auto;
+  background-color: darken($baseColor, 40%);
+  font-size: $font-size;
+  overflow-y: scroll;
+}
+
+#tab {
+  font-size: $font-size - 2px;
+  float: right;
+  height: 10px;
+  margin-top: -26px;
+  margin-right: 8px;
+  padding: 8px;
+  border-radius: 2px 2px 0 0;
+  background-color: $baseColor;
+}
+
+#header {
+  margin: 1em 0;
+  
+  h1 {
+    font-family: 'Oleo Script Swash Caps', cursive;
+    font-size: 72px;
+    
+    a {
+      color: lighten($baseColor, 15%);
+      text-shadow: 3px 3px 0 darken($baseColor, 50%);
+      
+      &:hover {
+        color: lighten($baseColor, 25%);
+      }
+    }
+  }
+}
+
+#app {
+  margin: 1em 0;
+  border-radius: 2px;
+  box-shadow: 4px 4px 0 darken($baseColor, 45%);
+  background-color: $baseColor;
+  padding: 8px;
+}
+
+input, textarea {
+  border-radius: 2px;
+  background-color: lighten($baseColor, 40%);
+  border: 2px solid darken($baseColor, 20%);
+  padding: 6px;
+  font-family: $monospace;
+  font-size: $font-size;
+}
+
+#pattern {
+  margin: 0 2px 2px 0;
+  width: $appWidth - 181px;
+}
+
+#error, #string {
+  width: $appWidth - 32px;
+}
+
+#string {
+  resize: vertical;
+  margin-bottom: 3px;
+  height: 96px;
+}
+
+#flags {
+  width: 128px;
+}
+
+#matches, #groups {
+  font-family: $monospace;
+  line-height: $font-size + 6px;
+  
+    @include transition(#{'background, outline-color'}, 1s);
+  
+  span {
+    $bgColor: #CCC;
+    background-color: $bgColor;
+    outline: 1px solid darken(red, 5%);
+    padding: 1px 0;
+
+  }
+}
+
+#footer {
+  text-align: center;
+  color: lighten($baseColor, 15%);
+  text-shadow: 1px 1px 0 darken($baseColor, 50%);
+  
+  a {
+    color: #99C;
+  }
+}
