@@ -12,7 +12,7 @@ var Regularish = (function() {
       initialize: function() {
         this.regex = new Regularish.Regex({
           pattern: '(\\/) (o,,o) (\\/)',
-          string: 'Need a Regular Expression? Why not Zoidberg?\n/ o,,o /'
+          string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
         });
         new Regularish.RegexView({ model: this.regex });
       }
