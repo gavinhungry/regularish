@@ -15,11 +15,10 @@ body {
   width: 800px;
   margin: auto;
   background-color: #222222;
-  font-size: 14px;
+  font-size: 13px;
   overflow-y: scroll; }
 
 #tab {
-  font-size: 12px;
   float: right;
   height: 12px;
   margin-top: -26px;
@@ -46,12 +45,13 @@ body {
   padding: 8px; }
   #drawer #reference {
     display: none; }
-    #drawer #reference table tr td {
+    #drawer #reference table td {
       color: #bbbbbb;
       text-shadow: 1px 1px 0 #222222;
       padding: 4px; }
-      #drawer #reference table tr td:first-child {
-        width: 0;
+      #drawer #reference table td:first-child {
+        width: 1px;
+        white-space: nowrap;
         font-family: "Menlo", "Consolas", monospace;
         font-weight: bold;
         background-color: #959595;
@@ -77,36 +77,47 @@ body {
   padding: 8px; }
 
 input, textarea {
-  border-radius: 2px;
   background-color: #eeeeee;
   border: 2px solid #555555;
+  border-radius: 2px;
   padding: 6px;
   font-family: "Menlo", "Consolas", monospace;
-  font-size: 14px; }
+  font-size: 13px; }
 
 #pattern {
-  margin: 0 2px 2px 0;
+  margin: 0 2px 0 0;
   width: 619px; }
-
-#error, #string {
-  width: 768px; }
-
-#string {
-  resize: vertical;
-  margin-bottom: 3px;
-  height: 128px; }
 
 #flags {
   width: 128px; }
 
+#string {
+  resize: vertical;
+  width: 768px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  height: 128px; }
+
+#wrap {
+  display: none; }
+
+#error {
+  width: 768px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  background-color: #A77;
+  border-color: #744;
+  color: #111; }
+
 #matches, #groups {
   border-radius: 2px;
-  margin-top: 4px;
+  margin-top: 6px;
+  margin-bottom: 0;
   padding: 6px;
   color: #eeeeee;
   overflow: auto;
   font-family: "Menlo", "Consolas", monospace;
-  line-height: 20px;
+  line-height: 19px;
   background-color: #222222;
   transition-property: height;
   transition-duration: 1s;
@@ -122,7 +133,7 @@ input, textarea {
     display: none; }
   #matches span, #groups span {
     white-space: pre;
-    background-color: #6c779f;
+    background-color: #483;
     padding: 1px 0; }
 
 ol.group {

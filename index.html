@@ -27,19 +27,8 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js '></script>
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min.js '></script>
+    <script type='application/javascript' src='js/slade.js'></script>
     <script type='application/javascript' src='js/regularish.js'></script>
-    <script type='application/javascript'>
-      $(function() {
-        Regularish.Template.preload(['groups']);
-        new Regularish.App();
-        
-        $('#pattern').trigger('focus');
-        $('#tab').on('click', function() {
-          $('#reference').stop().animate({ opacity: 'toggle' }, 'fast');    
-          $('#drawer').stop().animate({ height: 'toggle' }, 'fast');
-        });
-      });
-    </script>
   </head>
 
   <body>
@@ -86,7 +75,9 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
         <input id='pattern' type='text' placeholder='Regular Expression Pattern' />
         <input id='flags' type='text' placeholder='Flags' />
         <textarea id='string' placeholder='Input Strings'></textarea>
-        <input id='error' type='text' disabled placeholder='Issues and errors will be reported here' />
+        <div id='wrap'>
+          <input id='error' type='text' disabled />
+        </div>
         <pre id='matches'></pre>
         <div id='groups'></div>
       </div>

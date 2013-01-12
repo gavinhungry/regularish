@@ -5,7 +5,7 @@ $baseColor: #888;
 
 $monospace: 'Menlo', 'Consolas', monospace;
 $sans-serif: 'Ubuntu', 'Segoe UI', sans-serif;
-$font-size: 14px;
+$font-size: 13px;
 
 // --- [ Mix-ins ] -------------------------------------------------------------
 
@@ -46,7 +46,6 @@ body {
 }
 
 #tab {
-  font-size: $font-size - 2px;
   float: right;
   height: 12px;
   margin-top: -26px;
@@ -79,25 +78,22 @@ body {
     display: none;
     
     table {
-      tr {
+
+      td {
+        color: lighten($baseColor, 20%);
+        text-shadow: 1px 1px 0 darken($baseColor, 40%);
+        padding: 4px;
       
-        td {
-        
-          color: lighten($baseColor, 20%);
-          text-shadow: 1px 1px 0 darken($baseColor, 40%);
-          padding: 4px;
-        
-          &:first-child {
-            width: 0;
-            font-family: $monospace;
-            font-weight: bold;
-            background-color: lighten($baseColor, 5%);
-            color: darken($baseColor, 45%);
-            text-shadow: none;
-          }
-          
+        &:first-child {
+          width: 1px;
+          white-space: nowrap;
+          font-family: $monospace;
+          font-weight: bold;
+          background-color: lighten($baseColor, 5%);
+          color: darken($baseColor, 45%);
+          text-shadow: none;
         }
-      
+        
       }
     }
   }
@@ -130,31 +126,42 @@ body {
 }
 
 input, textarea {
-  border-radius: 2px;
   background-color: lighten($baseColor, 40%);
   border: 2px solid darken($baseColor, 20%);
+  border-radius: 2px;
   padding: 6px;
   font-family: $monospace;
   font-size: $font-size;
 }
 
 #pattern {
-  margin: 0 2px 2px 0;
+  margin: 0 2px 0 0;
   width: $appWidth - 181px;
-}
-
-#error, #string {
-  width: $appWidth - 32px;
-}
-
-#string {
-  resize: vertical;
-  margin-bottom: 3px;
-  height: 128px;
 }
 
 #flags {
   width: 128px;
+}
+
+#string {
+  resize: vertical;
+  width: $appWidth - 32px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  height: 128px;
+}
+
+#wrap {
+  display: none;
+}
+
+#error {
+  width: $appWidth - 32px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  background-color: #A77;
+  border-color: #744;
+  color: #111;
 }
 
 #matches, #groups {
@@ -163,7 +170,8 @@ input, textarea {
   }
 
   border-radius: 2px;
-  margin-top: 4px;
+  margin-top: 6px;
+  margin-bottom: 0;
   padding: 6px;
   color: lighten($baseColor, 40%);
 
@@ -180,7 +188,7 @@ input, textarea {
   
   span {
     white-space: pre;
-    background-color: mix($baseColor, #03F, 80%);
+    background-color: #483;
     padding: 1px 0;
   }
 }
