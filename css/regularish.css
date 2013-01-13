@@ -1,4 +1,3 @@
-/* messy messy messy */
 a {
   text-decoration: none; }
 
@@ -6,11 +5,11 @@ a {
   clear: both; }
 
 body {
-  font-family: "Ubuntu", "Segoe UI", sans-serif;
-  width: 800px;
+  width: 832px;
   margin: auto;
-  background-color: #222222;
+  font-family: "Ubuntu", "Segoe UI", sans-serif;
   font-size: 13px;
+  background-color: #222222;
   overflow-y: scroll; }
 
 #tab {
@@ -19,43 +18,43 @@ body {
   -webkit-user-select: none;
   -o-user-select: none;
   cursor: pointer;
-  font-weight: bold;
-  float: right;
   height: 12px;
   margin-top: -26px;
   margin-right: 32px;
   padding: 6px;
-  border-radius: 2px 2px 0 0;
-  background-color: #484848;
+  float: right;
   color: #a2a2a2;
   text-shadow: 1px 1px 0 #2f2f2f;
-  border-bottom: 2px solid #2f2f2f; }
+  font-weight: bold;
+  background-color: #484848;
+  border-bottom: 2px solid #2f2f2f;
+  border-radius: 2px 2px 0 0; }
   #tab:hover {
     background-color: #555555;
     color: #bbbbbb; }
 
 #drawer {
   display: none;
-  border-bottom: 2px solid #2f2f2f;
-  border-radius: 2px 2px 0 0;
-  background-color: #484848;
-  width: 736px;
+  width: 768px;
   margin: auto;
-  padding: 8px; }
+  padding: 8px;
+  background-color: #484848;
+  border-bottom: 2px solid #2f2f2f;
+  border-radius: 2px 2px 0 0; }
   #drawer #reference {
     display: none; }
-    #drawer #reference table td {
+    #drawer #reference td {
+      padding: 4px;
       color: #bbbbbb;
-      text-shadow: 1px 1px 0 #222222;
-      padding: 4px; }
-      #drawer #reference table td:first-child {
+      text-shadow: 1px 1px 0 #222222; }
+      #drawer #reference td:first-child {
         width: 1px;
-        white-space: nowrap;
+        color: #151515;
+        text-shadow: none;
         font-family: "Menlo", "Consolas", monospace;
         font-weight: bold;
-        background-color: #959595;
-        color: #151515;
-        text-shadow: none; }
+        white-space: nowrap;
+        background-color: #959595; }
 
 #header {
   margin: 1em 0; }
@@ -74,79 +73,67 @@ body {
 
 #app {
   margin: 0 0 1em;
-  border-radius: 2px;
-  box-shadow: 4px 4px 0 #151515;
+  padding: 8px;
   background-color: #888888;
-  padding: 8px; }
+  box-shadow: 4px 4px 0 #151515;
+  border-radius: 2px; }
 
 input, textarea {
-  background-color: #eeeeee;
-  border: 2px solid #555555;
-  border-radius: 2px;
   padding: 6px;
   font-family: "Menlo", "Consolas", monospace;
-  font-size: 13px; }
+  font-size: 13px;
+  background-color: #eeeeee;
+  border: 2px solid #555555;
+  border-radius: 2px; }
 
 #pattern {
   float: left;
-  margin: 0 2px 0 0;
-  width: 619px; }
+  width: 651px;
+  margin: 0 2px 0 0; }
 
 #flags {
   float: right;
-  margin: 0;
-  width: 128px; }
-
-#permalink {
-  width: 60px; }
+  width: 128px;
+  margin: 0; }
 
 #string {
   resize: vertical;
-  width: 768px;
+  width: 800px;
+  height: 128px;
   margin-top: 6px;
-  margin-bottom: 0;
-  height: 128px; }
+  margin-bottom: 0; }
 
 #wrap {
   display: none; }
-
-#error {
-  width: 768px;
-  margin-top: 6px;
-  margin-bottom: 0;
-  background-color: #A77;
-  border-color: #744;
-  color: #111; }
+  #wrap #error {
+    width: 800px;
+    margin-top: 6px;
+    margin-bottom: 0;
+    background-color: #A77;
+    border-color: #744;
+    color: #111; }
 
 #matches {
   white-space: pre-wrap; }
 
 #matches, #groups {
-  border-radius: 2px;
+  overflow: auto;
   margin-top: 6px;
   margin-bottom: 0;
   padding: 6px;
   color: #eeeeee;
-  overflow: auto;
   font-family: "Menlo", "Consolas", monospace;
   line-height: 19px;
   background-color: #222222;
-  transition-property: height;
-  transition-duration: 1s;
-  -webkit-transition-property: height;
-  -webkit-transition-duration: 1s;
-  -moz-transition-property: height;
-  -moz-transition-duration: 1s;
-  -o-transition-property: height;
-  -o-transition-duration: 1s; }
+  border-radius: 2px; }
   #matches:empty, #groups:empty {
     display: none; }
   #matches br:last-child, #groups br:last-child {
     display: none; }
   #matches span, #groups span {
     white-space: pre-wrap;
-    background-color: #483;
-    padding: 1px 0; }
+    padding: 1px 0;
+    background-color: #483; }
 
 ol.group {
   counter-reset: item;
@@ -155,17 +142,17 @@ ol.group {
     content: "Match " counter(item, decimal);
     counter-increment: item; }
   ol.group ol {
-    margin-bottom: 1em;
-    counter-reset: item; }
+    counter-reset: item;
+    margin-bottom: 1em; }
     ol.group ol:last-child {
       margin-bottom: 0; }
     ol.group ol li:before {
-      margin-left: 0.5em;
-      content: counter(item, decimal) ": "; }
+      content: counter(item, decimal) ": ";
+      margin-left: 0.5em; }
 
 #footer {
-  text-align: center;
   color: #aeaeae;
-  text-shadow: 1px 1px 0 #090909; }
+  text-shadow: 1px 1px 0 #090909;
+  text-align: center; }
   #footer a {
     color: #99C; }
