@@ -208,7 +208,7 @@ var Regularish = (function() {
         
         // only show the error box if there is an error
         regex.error === undefined ?
-          this.$wrap.sladeUp('fast') :
+          this.$wrap.stop().sladeUp('fast') :
           this.$wrap.sladeDown('fast');
         
         var strings = (regex.string).split('\n');
