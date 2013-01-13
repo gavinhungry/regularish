@@ -50,13 +50,13 @@ var Regularish = (function() {
         };
         
         if (!options.p && !options.f && !options.s) {
-          this.router.navigate('');
+          this.router.navigate('', { replace: true });
           return;
         }
 
         var json   = JSON.stringify(options);
         var route = btoa(json);
-        this.router.navigate('perm/' + route);
+        this.router.navigate('perm/' + route, { replace: true });
       },
      
       render: function() {
