@@ -3,63 +3,75 @@ var Regularish = (function() {
 
   return {
 
-    /*
-     *
-     */
     App: Backbone.View.extend({
       el: 'body',
 
       initialize: function() {
-        this.regex = new Regularish.Regex({
-          pattern: '(\\/) (o,,o) (\\/)',
-          string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
-        });
-
+      
+        // create Regex model, we'll only need one
+        this.regex = new Regularish.Regex();
+        
         this.router = new Regularish.Router();
-        this.router.on('route:load', function(pattern, flags, string) {
-          if (pattern === undefined || pattern === '_') { pattern = ''; }
-          if (flags   === undefined || flags   === '_') { flags = ''; }
-          if (string  === undefined || string  === '_') { string = ''; }
-
-          this.regex.set('pattern', decodeURIComponent(pattern));
-          this.regex.set('flags',   decodeURIComponent(flags));
-          this.regex.set('string',  decodeURIComponent(string));
-        }, this);
+        this.router.on('route:load', this.updateRegex, this);
+        this.regex.on('change:pattern change:flags change:string',
+          this.updateRoute, this);
         
         Backbone.history.start();
         this.render();
       },
-      
+
+      // update Regex when route changes
+      updateRegex: function(route) {
+        try {
+          var base64 = decodeURIComponent(route);
+          var json = atob(base64);
+          var options = JSON.parse(json);
+          
+          this.regex.set({
+            pattern: options.p,
+            flags:   options.f,
+            string:  options.s
+          });
+
+        } catch(e) {
+          this.regex.set({
+            pattern: '(\\/) (o,,o) (\\/)',
+            string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
+          });
+        }
+      },
+
+      // update route when Regex changes
+      updateRoute: function() {
+        var options = {
+          p: this.regex.get('pattern'),
+          f: this.regex.get('flags'),
+          s: this.regex.get('string')
+        };
+        
+        if (!options.p && !options.f && !options.s) {
+          this.router.navigate('');
+          return;
+        }
+        
+        var json   = JSON.stringify(options);
+        var base64 = btoa(json);
+        var route  = encodeURIComponent(base64);
+        
+        this.router.navigate(route);
+      },
+     
       render: function() {
-      
-        this.$('#permalink').on('click', function() {
-          var pattern = encodeURIComponent(this.regex.get('pattern'));
-          var flags   = encodeURIComponent(this.regex.get('flags'));
-          var string  = encodeURIComponent(this.regex.get('string'));
-          
-          if (pattern.length === 0) { pattern = '_'; }
-          if (flags.length   === 0) { flags   = '_'; }
-          if (string.length  === 0) { string  = '_'; }
-          
-          this.router.navigate(pattern + '/' + flags + '/' + string);
-        }.bind(this));
-      
         new Regularish.RegexView({ model: this.regex });
       }
     }),
 
 
-    /*
-     *
-     */
     Router: Backbone.Router.extend({
-      routes: { ':pattern(/:flags)(/:string)': 'load' },
+      routes: { ':route': 'load' },
     }),
 
 
-    /*
-     *
-     */
     Template: (function() {
       var templates = {};
 
@@ -76,7 +88,7 @@ var Regularish = (function() {
           _.each(id, load);
         },
 
-        // pass a template to a callback function                            
+        // pass a template to a callback function
         get: function(id, callback) {
           var template = load(id);
           template.done(function(template) {
@@ -87,9 +99,6 @@ var Regularish = (function() {
     })(), 
 
 
-    /*
-     *
-     */
     Regex: Backbone.Model.extend({
       defaults: {
         pattern: '',
@@ -99,17 +108,16 @@ var Regularish = (function() {
       
       // watch for changes to the properties applied to the RegExp object
       initialize: function() {
-        this.on('change:pattern', this.updateRegex);
-        this.on('change:flags', this.updateRegex);
-        
+        this.on('change:pattern change:flags', this.updateRegex);
         this.updateRegex();
       },
       
       // update the underlying RegExp object, track any error messages
       updateRegex: function() {
+        this.unset('re');
+        this.unset('error');
+        
         try {
-          this.unset('re');
-          this.unset('error');
           this.set('re', new RegExp(this.get('pattern'), this.get('flags')));
         } catch(e) {
           this.set('error', e);
@@ -118,9 +126,6 @@ var Regularish = (function() {
     }),
 
 
-    /*
-     *
-     */
     RegexView: Backbone.View.extend({
       el: '#regex',
       
@@ -137,9 +142,11 @@ var Regularish = (function() {
       },
       
       updateModel: function() {
-        this.model.set('pattern', this.$pattern.val());
-        this.model.set('flags',   this.$flags.val());
-        this.model.set('string',  this.$string.val());
+        this.model.set({
+          pattern: this.$pattern.val(),
+          flags: this.$flags.val(),
+          string: this.$string.val()
+        }); 
       },
 
       // update the View when the Regex Model changes
@@ -172,7 +179,9 @@ var Regularish = (function() {
             var match = lineMatches[j];
             mOutput += _.escape(string.slice(0, match.from));
             var matchStr = _.escape(string.slice(match.from, match.to));
-            if (matchStr.length > 0) { mOutput += '<span>' + matchStr + '</span>'; }
+            if (matchStr.length > 0) {
+              mOutput += '<span>' + matchStr + '</span>';
+            }
             string = string.slice(match.to);
           }
           
@@ -189,10 +198,12 @@ var Regularish = (function() {
       
       regexMatch: function() {
         var regex = this.model.attributes;
+        var re = regex.re;
+        
         var matches = [];
         var groups = [];
        
-        if (regex.re instanceof RegExp) {
+        if (re instanceof RegExp) {
         
           // work on the input line-by-line
           var strings = (regex.string).split('\n');
@@ -205,12 +216,12 @@ var Regularish = (function() {
             var match = [];
             var group = [];
 
-            while (result = regex.re.exec(string)) {
+            while (result = re.exec(string)) {
               var from = result.index;
               var to = from + result[0].length;
 
               match.push({ from: from, to: to });
-              if ((regex.re.global || group.length === 0) && result.length > 0) {
+              if ((re.global || group.length === 0) && result.length > 0) {
                 group.push(_.filter(_.rest(result, 1), function(s) {
                   return s.length > 0;
                 }));
@@ -218,15 +229,17 @@ var Regularish = (function() {
               
               if (to === 0) { break; }
               string = string.substr(to);
-              regex.re.lastIndex = 0;
+              re.lastIndex = 0;
             }
             
-            // save matches and groups, reset lastIndex for next line
+            // save matches and groups
             matches.push(match);
             _.each(group, function(g) {
               if (!_.isEmpty(g)) { groups.push(g); }
             });
-            regex.re.lastIndex = 0;
+            
+            // reset lastIndex for next line
+            re.lastIndex = 0;
           }
         }
         
