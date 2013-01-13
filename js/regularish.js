@@ -27,9 +27,9 @@ var Regularish = (function() {
           var options = JSON.parse(json);
           
           this.regex.set({
-            pattern: decodeURIComponent(options.p),
-            flags:   decodeURIComponent(options.f),
-            string:  decodeURIComponent(options.s)
+            pattern: decodeURI(options.p),
+            flags:   decodeURI(options.f),
+            string:  decodeURI(options.s)
           });
 
         } catch(e) {
@@ -44,9 +44,9 @@ var Regularish = (function() {
       // update route when Regex changes
       updateRoute: function() {
         var options = {
-          p: encodeURIComponent(this.regex.get('pattern')),
-          f: encodeURIComponent(this.regex.get('flags')),
-          s: encodeURIComponent(this.regex.get('string'))
+          p: encodeURI(this.regex.get('pattern')),
+          f: encodeURI(this.regex.get('flags')),
+          s: encodeURI(this.regex.get('string'))
         };
         
         if (!options.p && !options.f && !options.s) {
@@ -54,7 +54,7 @@ var Regularish = (function() {
           return;
         }
 
-        var json   = JSON.stringify(options);
+        var json  = JSON.stringify(options);
         var route = btoa(json);
         this.router.navigate('perm/' + route, { replace: true });
       },
@@ -120,82 +120,10 @@ var Regularish = (function() {
         } catch(e) {
           this.set('error', e);
         }
-      }
-    }),
-
-
-    RegexView: Backbone.View.extend({
-      el: '#regex',
-      
-      initialize: function() {
-        this.render();
-        this.model.on('change', this.updateView, this);
-      },
-
-      // update the Regex Model when the input changes
-      events: {
-        'input #pattern': 'updateModel',
-        'input #flags':   'updateModel',
-        'input #string':  'updateModel'
       },
       
-      updateModel: function() {
-        this.model.set({
-          pattern: this.$pattern.val(),
-          flags: this.$flags.val(),
-          string: this.$string.val()
-        }); 
-      },
-
-      // update the View when the Regex Model changes
-      updateView: function() {
-        var regex = this.model.attributes;
-        
-        this.$pattern.val(regex.pattern);
-        this.$flags.val(regex.flags);
-        this.$string.val(regex.string);
-        this.$error.val(regex.error);
-        
-        // only show the error box if there is an error
-        regex.error === undefined ?
-          this.$wrap.sladeUp('fast') :
-          this.$wrap.sladeDown('fast');
-        
-        var strings = (regex.string).split('\n');
-        
-        var results = this.regexMatch();
-        var matches = results.matches;
-        var groups  = results.groups;    
-
-        var mOutput = '';
-        for (var i = 0; i < matches.length; i++) {
-          var lineMatches = matches[i];
-          var string = strings[i];
-
-          // look for matches line-by-line
-          for (var j = 0; j < lineMatches.length; j++) {
-            var match = lineMatches[j];
-            mOutput += _.escape(string.slice(0, match.from));
-            var matchStr = _.escape(string.slice(match.from, match.to));
-            if (matchStr.length > 0) {
-              mOutput += '<span>' + matchStr + '</span>';
-            }
-            string = string.slice(match.to);
-          }
-          
-          mOutput += _.escape(string) + '<br>';
-        }
-
-        this.$matches.html(mOutput === '<br>' ? '' : mOutput);
-        
-        Regularish.Template.get('groups', function(template) {
-          var gOutput = _.template(template, { groups: groups });
-          this.$groups.html(gOutput === '\n' ? '' : gOutput);
-        }.bind(this));
-      },
-      
-      regexMatch: function() {
-        var regex = this.model.attributes;
+      getMatches: function() {
+        var regex = this.attributes;
         var re = regex.re;
         
         var matches = [];
@@ -242,6 +170,78 @@ var Regularish = (function() {
         }
         
         return { matches: matches, groups: groups };
+      }
+    }),
+
+
+    RegexView: Backbone.View.extend({
+      el: '#regex',
+      
+      initialize: function() {
+        this.render();
+        this.model.on('change', this.updateView, this);
+      },
+
+      // update the Regex Model when the input changes
+      events: {
+        'input #pattern': 'updateModel',
+        'input #flags':   'updateModel',
+        'input #string':  'updateModel'
+      },
+      
+      updateModel: function() {
+        this.model.set({
+          pattern: this.$pattern.val(),
+          flags: this.$flags.val(),
+          string: this.$string.val()
+        }); 
+      },
+
+      // update the View when the Regex Model changes
+      updateView: function() {
+        var regex = this.model.attributes;
+        
+        this.$pattern.val(regex.pattern);
+        this.$flags.val(regex.flags);
+        this.$string.val(regex.string);
+        this.$error.val(regex.error);
+        
+        // only show the error box if there is an error
+        regex.error === undefined ?
+          this.$wrap.sladeUp('fast') :
+          this.$wrap.sladeDown('fast');
+        
+        var strings = (regex.string).split('\n');
+        
+        var results = this.model.getMatches();
+        var matches = results.matches;
+        var groups  = results.groups;    
+
+        var mOutput = '';
+        for (var i = 0; i < matches.length; i++) {
+          var lineMatches = matches[i];
+          var string = strings[i];
+
+          // look for matches line-by-line
+          for (var j = 0; j < lineMatches.length; j++) {
+            var match = lineMatches[j];
+            mOutput += _.escape(string.slice(0, match.from));
+            var matchStr = _.escape(string.slice(match.from, match.to));
+            if (matchStr.length > 0) {
+              mOutput += '<span>' + matchStr + '</span>';
+            }
+            string = string.slice(match.to);
+          }
+          
+          mOutput += _.escape(string) + '<br>';
+        }
+
+        this.$matches.html(mOutput === '<br>' ? '' : mOutput);
+        
+        Regularish.Template.get('groups', function(template) {
+          var gOutput = _.template(template, { groups: groups });
+          this.$groups.html(gOutput === '\n' ? '' : gOutput);
+        }.bind(this));
       },
       
       render: function() {
