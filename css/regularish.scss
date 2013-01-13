@@ -20,7 +20,23 @@ $font-size: 13px;
   -o-transition-duration: $duration;
 }
 
+@mixin noselect() {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+@mixin clickable {
+  @include noselect();
+  cursor: pointer;
+}
+
 // -----------------------------------------------------------------------------
+
+
+
+
 
 a {
   text-decoration: none;
@@ -46,6 +62,7 @@ body {
 }
 
 #tab {
+  font-weight: bold;
   float: right;
   height: 12px;
   margin-top: -26px;
@@ -143,6 +160,10 @@ input, textarea {
   width: 128px;
 }
 
+#permalink {
+  width: 60px;
+}
+
 #string {
   resize: vertical;
   width: $appWidth - 32px;
@@ -164,6 +185,10 @@ input, textarea {
   color: #111;
 }
 
+#matches {
+  white-space: pre-wrap;
+}
+
 #matches, #groups {
   &:empty {
     display: none;
@@ -174,7 +199,6 @@ input, textarea {
   margin-bottom: 0;
   padding: 6px;
   color: lighten($baseColor, 40%);
-
   overflow: auto;
   font-family: $monospace;
   line-height: $font-size + 6px;
@@ -187,7 +211,7 @@ input, textarea {
   }
   
   span {
-    white-space: pre;
+    white-space: pre-wrap;
     background-color: #483;
     padding: 1px 0;
   }
@@ -211,7 +235,8 @@ ol.group {
     }
       
     li:before {
-      content: counter(item, decimal) ': ';
+      margin-left: 0.5em;
+      content: counter(item, decimal) ': '
     }
   }
 }

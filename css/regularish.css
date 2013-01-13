@@ -19,6 +19,7 @@ body {
   overflow-y: scroll; }
 
 #tab {
+  font-weight: bold;
   float: right;
   height: 12px;
   margin-top: -26px;
@@ -91,6 +92,9 @@ input, textarea {
 #flags {
   width: 128px; }
 
+#permalink {
+  width: 60px; }
+
 #string {
   resize: vertical;
   width: 768px;
@@ -108,6 +112,9 @@ input, textarea {
   background-color: #A77;
   border-color: #744;
   color: #111; }
+
+#matches {
+  white-space: pre-wrap; }
 
 #matches, #groups {
   border-radius: 2px;
@@ -132,7 +139,7 @@ input, textarea {
   #matches br:last-child, #groups br:last-child {
     display: none; }
   #matches span, #groups span {
-    white-space: pre;
+    white-space: pre-wrap;
     background-color: #483;
     padding: 1px 0; }
 
@@ -148,6 +155,7 @@ ol.group {
     ol.group ol:last-child {
       margin-bottom: 0; }
     ol.group ol li:before {
+      margin-left: 0.5em;
       content: counter(item, decimal) ": "; }
 
 #footer {
