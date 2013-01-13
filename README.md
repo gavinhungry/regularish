@@ -1,3 +1,4 @@
 Regularish
 ==========
-Regularish is a Rubular-inspired JavaScript regular expression editor.
+Regularish (regularish.com) is a JavaScript regular expression editor,
+inspired by Rubular (rubular.com).
