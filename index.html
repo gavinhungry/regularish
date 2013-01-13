@@ -21,9 +21,14 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
 <html>
   <head>
     <title>Regularish: a JavaScript regular expression editor</title>
+    
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+
     <link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css' />
     <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps' />
     <link rel='stylesheet' type='text/css' href='css/regularish.css' />
+
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js '></script>
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.9/backbone-min.js '></script>
@@ -76,7 +81,7 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
         <input id='flags' type='text' placeholder='Flags' />
         <textarea id='string' placeholder='Input Strings'></textarea>
         <div id='wrap'>
-          <input id='error' type='text' disabled />
+          <input id='error' type='text' readonly />
         </div>
         <pre id='matches'></pre>
         <div id='groups'></div>
@@ -86,7 +91,7 @@ Desc: JavaScript regular expression editor, inspired by Rubular (rubular.com)
     <div id='footer'>
       Created by <a href='https://gavinhungry.com/'>Gavin Lloyd</a> / <a href='https://twitter.com/gavinhungry'>@gavinhungry</a>.
       Inspired by <a href='http://rubular.com'>Rubular</a>.
-      Source code freely available on <a href='https://github.com/gavinhungry/regularish'>GitHub</a>.
+      Code available on <a href='https://github.com/gavinhungry/regularish'>GitHub</a>.
     </div>
   </body>
 </html>

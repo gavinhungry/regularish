@@ -23,19 +23,19 @@ var Regularish = (function() {
       // update Regex when route changes
       updateRegex: function(route) {
         try {
-          var base64 = decodeURIComponent(route);
-          var json = atob(base64);
+          var json = atob(route);
           var options = JSON.parse(json);
           
           this.regex.set({
-            pattern: options.p,
-            flags:   options.f,
-            string:  options.s
+            pattern: decodeURIComponent(options.p),
+            flags:   decodeURIComponent(options.f),
+            string:  decodeURIComponent(options.s)
           });
 
         } catch(e) {
           this.regex.set({
             pattern: '(\\/) (o,,o) (\\/)',
+            flags: '',
             string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
           });
         }
@@ -44,21 +44,19 @@ var Regularish = (function() {
       // update route when Regex changes
       updateRoute: function() {
         var options = {
-          p: this.regex.get('pattern'),
-          f: this.regex.get('flags'),
-          s: this.regex.get('string')
+          p: encodeURIComponent(this.regex.get('pattern')),
+          f: encodeURIComponent(this.regex.get('flags')),
+          s: encodeURIComponent(this.regex.get('string'))
         };
         
         if (!options.p && !options.f && !options.s) {
           this.router.navigate('');
           return;
         }
-        
+
         var json   = JSON.stringify(options);
-        var base64 = btoa(json);
-        var route  = encodeURIComponent(base64);
-        
-        this.router.navigate(route);
+        var route = btoa(json);
+        this.router.navigate('perm/' + route);
       },
      
       render: function() {
@@ -68,7 +66,7 @@ var Regularish = (function() {
 
 
     Router: Backbone.Router.extend({
-      routes: { ':route': 'load' },
+      routes: { 'perm/*splat': 'load' },
     }),
 
 
