@@ -46,14 +46,8 @@ a {
   clear: both;
 }
 
-.noselect {
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none;
-}
-
 body {
+  font-family: $sans-serif;
   width: $appWidth;
   margin: auto;
   background-color: darken($baseColor, 40%);
@@ -62,6 +56,8 @@ body {
 }
 
 #tab {
+  @include clickable();  
+
   font-weight: bold;
   float: right;
   height: 12px;
@@ -72,8 +68,6 @@ body {
   background-color: darken($baseColor, 25%);
   color: lighten($baseColor, 10%);
   text-shadow: 1px 1px 0 darken($baseColor, 35%);
-  cursor: pointer;
-  font-family: $sans-serif;
   border-bottom: 2px solid darken($baseColor, 35%);
   
   &:hover {
@@ -120,6 +114,7 @@ body {
   margin: 1em 0;
   
   h1 {
+    @include noselect();
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 72px;
     
@@ -152,11 +147,14 @@ input, textarea {
 }
 
 #pattern {
+  float: left;
   margin: 0 2px 0 0;
   width: $appWidth - 181px;
 }
 
 #flags {
+  float: right;
+  margin: 0;
   width: 128px;
 }
 

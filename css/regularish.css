@@ -5,13 +5,8 @@ a {
 .clear {
   clear: both; }
 
-.noselect {
-  user-select: none;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -o-user-select: none; }
-
 body {
+  font-family: "Ubuntu", "Segoe UI", sans-serif;
   width: 800px;
   margin: auto;
   background-color: #222222;
@@ -19,6 +14,11 @@ body {
   overflow-y: scroll; }
 
 #tab {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  cursor: pointer;
   font-weight: bold;
   float: right;
   height: 12px;
@@ -29,8 +29,6 @@ body {
   background-color: #484848;
   color: #a2a2a2;
   text-shadow: 1px 1px 0 #2f2f2f;
-  cursor: pointer;
-  font-family: "Ubuntu", "Segoe UI", sans-serif;
   border-bottom: 2px solid #2f2f2f; }
   #tab:hover {
     background-color: #555555;
@@ -62,6 +60,10 @@ body {
 #header {
   margin: 1em 0; }
   #header h1 {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
     font-family: "Oleo Script Swash Caps", cursive;
     font-size: 72px; }
     #header h1 a {
@@ -86,10 +88,13 @@ input, textarea {
   font-size: 13px; }
 
 #pattern {
+  float: left;
   margin: 0 2px 0 0;
   width: 619px; }
 
 #flags {
+  float: right;
+  margin: 0;
   width: 128px; }
 
 #permalink {
