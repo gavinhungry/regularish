@@ -261,14 +261,23 @@ var Regularish = (function() {
 
 
 $(function() {
-  Regularish.Template.preload(['groups']);
-  new Regularish.App();
-  
-  $('#pattern').trigger('focus');
-  
+
   // Regex Quick Reference
   $('#tab').on('click', function() {
     $('#reference').stop().animate({ opacity: 'toggle' }, 'fast');
     $('#drawer').stop().animate({ height: 'toggle' }, 'fast');
   });
+  
+  $('#pattern').trigger('focus');
+
+  yepnope({
+    test: window.atob && window.btoa,
+    nope: 'js/base64.min.js',
+    
+    complete: function() {
+      Regularish.Template.preload(['groups']);
+      new Regularish.App();
+    }
+  });
+  
 });
