@@ -134,9 +134,9 @@ var Regularish = (function() {
 
       // update the Regex Model when the input changes
       events: {
-        'keyup #pattern': 'updateModel',
-        'keyup #flags':   'updateModel',
-        'keyup #string':  'updateModel'
+        'input #pattern': 'updateModel',
+        'input #flags':   'updateModel',
+        'input #string':  'updateModel'
       },
       
       updateModel: function() {
