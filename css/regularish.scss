@@ -27,7 +27,7 @@ a {
 
 body {
   width: $appWidth;
-  margin: auto;
+  margin: 0 auto 1em;
   font-family: $sans-serif;
   font-size: $font-size;
   background-color: darken($baseColor, 40%);

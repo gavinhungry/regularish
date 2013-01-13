@@ -6,7 +6,7 @@ a {
 
 body {
   width: 832px;
-  margin: auto;
+  margin: 0 auto 1em;
   font-family: "Ubuntu", "Segoe UI", sans-serif;
   font-size: 13px;
   background-color: #222222;
