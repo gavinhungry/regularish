@@ -209,10 +209,11 @@ ol.group {
 
 #footer {
   color: lighten($baseColor, 15%);
-  text-shadow: 1px 1px 0 darken($baseColor, 50%);
+  text-shadow: 1px 1px 0 darken($baseColor, 45%);
   text-align: center;
   
   a {
     color: #99C;
+    font-weight: bold;
   }
 }
