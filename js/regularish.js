@@ -7,7 +7,7 @@ var Regularish = (function() {
 
       initialize: function() {
 
-        // focus the main input element      
+        // focus the main input element
         $('#pattern').trigger('focus');
 
         // Regex Quick Reference
@@ -18,12 +18,12 @@ var Regularish = (function() {
 
         // create Regex model, we'll only need one
         this.regex = new Regularish.Regex();
-        
+
         this.router = new Regularish.Router();
         this.router.on('route:load', this.updateRegex, this);
         this.regex.on('change:pattern change:flags change:string',
           this.updateRoute, this);
-        
+
         Backbone.history.start();
         this.render();
       },
@@ -33,7 +33,7 @@ var Regularish = (function() {
         try {
           var json = atob(route);
           var options = JSON.parse(json);
-          
+
           this.regex.set({
             pattern: decodeURI(options.p),
             flags:   decodeURI(options.f),
@@ -56,7 +56,7 @@ var Regularish = (function() {
           f: encodeURI(this.regex.get('flags')),
           s: encodeURI(this.regex.get('string'))
         };
-        
+
         if (!options.p && !options.f && !options.s) {
           this.router.navigate('', { replace: true });
           return;
@@ -66,7 +66,7 @@ var Regularish = (function() {
         var route = btoa(json);
         this.router.navigate('perm/' + route, { replace: true });
       },
-     
+
       render: function() {
         new Regularish.RegexView({ model: this.regex });
       }
@@ -81,15 +81,15 @@ var Regularish = (function() {
     Template: (function() {
       var templates = {};
 
-      // return a template from cache or fetch from the server and defer                                  
+      // return a template from cache or fetch from the server and defer
       var load = function(id) {
-        var template = templates[id] || $.get('templates/' + id + '.html');                                                              
+        var template = templates[id] || $.get('templates/' + id + '.html');
         templates[id] = template;
         return template;
       };
 
       return {
-        // load an array of templates into Template, returns nothing                                      
+        // load an array of templates into Template, returns nothing
         preload: function(id) {
           _.each(id, load);
         },
@@ -102,7 +102,7 @@ var Regularish = (function() {
           });
         }
       };
-    })(), 
+    })(),
 
 
     Regex: Backbone.Model.extend({
@@ -111,41 +111,41 @@ var Regularish = (function() {
         flags: '',
         string: ''
       },
-      
+
       // watch for changes to the properties applied to the RegExp object
       initialize: function() {
         this.on('change:pattern change:flags', this.updateRegex);
         this.updateRegex();
       },
-      
+
       // update the underlying RegExp object, track any error messages
       updateRegex: function() {
         this.unset('re');
         this.unset('error');
-        
+
         try {
           this.set('re', new RegExp(this.get('pattern'), this.get('flags')));
         } catch(e) {
           this.set('error', e);
         }
       },
-      
+
       getMatches: function() {
         var regex = this.attributes;
         var re = regex.re;
-        
+
         var matches = [];
         var groups = [];
-       
+
         if (re instanceof RegExp) {
-        
+
           // work on the input line-by-line
           var strings = (regex.string).split('\n');
           var result;
-          
+
           for (var i = 0; i < strings.length; i++) {
             var string = strings[i];
-            
+
             // matches for just this line
             var match = [];
             var group = [];
@@ -157,26 +157,26 @@ var Regularish = (function() {
               match.push({ from: from, to: to });
               if ((re.global || group.length === 0) && result.length > 0) {
                 group.push(_.filter(_.rest(result, 1), function(s) {
-                  return s.length > 0;
+                  return s !== undefined && s.length > 0;
                 }));
               }
-              
+
               if (to === 0) { break; }
               string = string.substr(to);
               re.lastIndex = 0;
             }
-            
+
             // save matches and groups
             matches.push(match);
             _.each(group, function(g) {
               if (!_.isEmpty(g)) { groups.push(g); }
             });
-            
+
             // reset lastIndex for next line
             re.lastIndex = 0;
           }
         }
-        
+
         return { matches: matches, groups: groups };
       }
     }),
@@ -184,7 +184,7 @@ var Regularish = (function() {
 
     RegexView: Backbone.View.extend({
       el: '#regex',
-      
+
       initialize: function() {
         this.render();
         this.model.on('change', this.updateView, this);
@@ -196,34 +196,34 @@ var Regularish = (function() {
         'input #flags':   'updateModel',
         'input #string':  'updateModel'
       },
-      
+
       updateModel: function() {
         this.model.set({
           pattern: this.$pattern.val(),
           flags: this.$flags.val(),
           string: this.$string.val()
-        }); 
+        });
       },
 
       // update the View when the Regex Model changes
       updateView: function() {
         var regex = this.model.attributes;
-        
+
         this.$pattern.val(regex.pattern);
         this.$flags.val(regex.flags);
         this.$string.val(regex.string);
         this.$error.val(regex.error);
-        
+
         // only show the error box if there is an error
         regex.error === undefined ?
           this.$wrap.stop().sladeUp('fast') :
           this.$wrap.sladeDown('fast');
-        
+
         var strings = (regex.string).split('\n');
-        
+
         var results = this.model.getMatches();
         var matches = results.matches;
-        var groups  = results.groups;    
+        var groups  = results.groups;
 
         var mOutput = '';
         for (var i = 0; i < matches.length; i++) {
@@ -240,18 +240,18 @@ var Regularish = (function() {
             }
             string = string.slice(match.to);
           }
-          
+
           mOutput += _.escape(string) + '<br>';
         }
 
         this.$matches.html(mOutput === '<br>' ? '' : mOutput);
-        
+
         Regularish.Template.get('groups', function(template) {
           var gOutput = _.template(template, { groups: groups });
           this.$groups.html(gOutput === '\n' ? '' : gOutput);
         }, this);
       },
-      
+
       render: function() {
         this.$pattern = this.$('#pattern');
         this.$flags   = this.$('#flags');
@@ -260,7 +260,7 @@ var Regularish = (function() {
         this.$error   = this.$('#error');
         this.$matches = this.$('#matches');
         this.$groups  = this.$('#groups');
-        
+
         this.updateView();
       }
     })
