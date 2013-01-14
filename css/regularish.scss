@@ -164,10 +164,13 @@ input, textarea {
 
 #matches, #groups {
   &:empty {
-    display: none;
+    visibility: hidden;
+    max-height: 0;
+    margin: 0;
+    padding: 0;
   }
-  overflow: auto;
 
+  overflow: auto;
   margin-top: 6px;
   margin-bottom: 0;
   padding: 6px;
