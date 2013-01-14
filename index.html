@@ -66,34 +66,39 @@
       <div id='reference'>
         <table>
           <tr>
-            <td>[a-z]</td><td>Character from a to z</td>
+            <td>[a-m]</td><td>Character from a to m</td>
             <td>.</td><td>Any character</td>
             <td>*</td><td>0 or more</td>
           </tr>
           <tr>
-            <td>[0-9]</td><td>Digit from 0 to 9</td>
-            <td>\w</td><td>A word character</td>
+            <td>[N-Z]</td><td>Character from N to Z</td>
+            <td>\w</td><td>Any word character</td>
             <td>+</td><td>1 or more</td>
           </tr>
           <tr>
-            <td>[xyz]</td><td>x or y or z</td>
-            <td>\d</td><td>A digit</td>
+            <td>[0-6]</td><td>Digit from 0 to 6</td>
+            <td>\d</td><td>Any digit</td>
             <td>?</td><td>0 or 1</td>
           </tr>
           <tr>
-            <td>[^xy]</td><td>Not x or y</td>
-            <td>\s</td><td>A whitespace character</td>
+            <td>[xyz]</td><td>x or y or z</td>
+            <td>\s</td><td>Any whitespace character</td>
             <td>{4}</td><td>Exactly 4</td>
           </tr>
           <tr>
-            <td>(ab|xy)</td><td>ab or xy</td>
+            <td>[^a]</td><td>Not a</td>
             <td>\b</td><td>Word boundry</td>
+            <td>{4,}</td><td>4 or more</td>
+          </tr>
+          <tr>
+            <td>[^xy]</td><td>Not x or y</td>
+            <td>\x52</td><td>Hex character 0x52 (R)</td>
             <td>{4,7}</td><td>Between 4 and 7</td>
           </tr>
           <tr>
+            <td>(ab|xy)</td><td>ab or xy</td>
+            <td>\130</td><td>Octal character 130 (X)</td>
             <td>(...)</td><td>Capture group</td>
-            <td>\x47</td><td>Hex character 0x47</td>
-            <td>{4,}</td><td>4 or more</td>
           </tr>
         </table>
         <div class='clear'></div>
