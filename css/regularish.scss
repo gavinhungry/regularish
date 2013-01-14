@@ -27,7 +27,7 @@ a {
 
 body {
   width: $appWidth;
-  margin: 0 auto 1em;
+  margin: 0 auto 2em;
   font-family: $sans-serif;
   font-size: $font-size;
   background-color: darken($baseColor, 40%);
@@ -109,7 +109,7 @@ body {
 }
 
 #app {
-  margin: 0 0 1em;
+  margin: 0 0 2em;
   padding: 8px;
   background-color: $baseColor;
   box-shadow: 4px 4px 0 darken($baseColor, 45%);
@@ -218,7 +218,16 @@ ol.group {
   text-align: center;
 
   a {
-    color: #99C;
+    $color: #89A;
+    color: $color;
     font-weight: bold;
+
+    &:hover {
+      color: lighten($color, 10%);
+    }
+
+    &:active {
+      color: darken($color, 10%);
+    }
   }
 }
