@@ -90,7 +90,7 @@ body {
 
       tr {
         &:nth-child(even) {
-          background-color: darken($baseColor, 30%);
+          background-color: darken($baseColor, 20%);
         }
 
         td {
