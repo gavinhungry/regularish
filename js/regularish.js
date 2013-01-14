@@ -188,13 +188,20 @@ var Regularish = (function() {
       initialize: function() {
         this.render();
         this.model.on('change', this.updateView, this);
-      },
 
-      // update the Regex Model when the input changes
-      events: {
-        'input #pattern': 'updateModel',
-        'input #flags':   'updateModel',
-        'input #string':  'updateModel'
+        var that = this;
+        // update the Regex Model when the input changes
+        $('#pattern, #flags, #string').each(function() {
+          var input = $(this);
+
+          // use only the event that gets here first
+          input.on('input keyup', function() {
+            if (input.data('cached') !== input.val()) {
+              input.data('cached', input.val());
+              that.updateModel();
+            }
+          });
+        });
       },
 
       updateModel: function() {

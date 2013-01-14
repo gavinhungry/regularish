@@ -66,19 +66,24 @@ body {
   #reference {
     display: none;
 
-    td {
-      padding: 4px;
-      color: lighten($baseColor, 20%);
-      text-shadow: 1px 1px 0 darken($baseColor, 40%);
+    table {
+      width: 33%;
+      float: left;
 
-      &:first-child {
-        width: 1px;
-        color: darken($baseColor, 45%);
-        text-shadow: none;
-        font-family: $monospace;
-        font-weight: bold;
-        white-space: nowrap;
-        background-color: lighten($baseColor, 5%);
+      td {
+        padding: 4px;
+        color: lighten($baseColor, 20%);
+        text-shadow: 1px 1px 0 darken($baseColor, 40%);
+
+        &:first-child {
+          width: 1px;
+          color: darken($baseColor, 45%);
+          text-shadow: none;
+          font-family: $monospace;
+          font-weight: bold;
+          white-space: nowrap;
+          background-color: lighten($baseColor, 5%);
+        }
       }
     }
   }
