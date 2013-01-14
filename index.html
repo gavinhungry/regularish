@@ -62,33 +62,39 @@
     </div>
 
     <div id='tab'>Regex Quick Reference</div>
-    <div id='drawer'>
+    <div id='drawer' class='slade'>
       <div id='reference'>
         <table>
-          <tr><td>[a-z]</td><td>Character from a to z</td></tr>
-          <tr><td>[0-9]</td><td>Digit from 0 to 9</td></tr>
-          <tr><td>[xyz]</td><td>x or y or z</td></tr>
-          <tr><td>[^x]</td><td>Any character except x</td></tr>
-          <tr><td>(ab|xy)</td><td>Match ab or xy</td></tr>
-          <tr><td>(...)</td><td>Capture group</td></tr>
-        </table>
-
-        <table>
-          <tr><td>.</td><td>Any character</td></tr>
-          <tr><td>\w</td><td>A word character</td></tr>
-          <tr><td>\d</td><td>A digit</td></tr>
-          <tr><td>\s</td><td>A whitespace character</td></tr>
-          <tr><td>\b</td><td>Word boundry</td></tr>
-          <tr><td>\x47</td><td>Hex character 0x47</td></tr>
-        </table>
-
-        <table>
-          <tr><td>*</td><td>0 or more</td></tr>
-          <tr><td>+</td><td>1 or more</td></tr>
-          <tr><td>?</td><td>0 or 1</td></tr>
-          <tr><td>{4}</td><td>Exactly 4</td></tr>
-          <tr><td>{4,7}</td><td>Between 4 and 7</td></tr>
-          <tr><td>{4,}</td><td>4 or more</td></tr>
+          <tr>
+            <td>[a-z]</td><td>Character from a to z</td>
+            <td>.</td><td>Any character</td>
+            <td>*</td><td>0 or more</td>
+          </tr>
+          <tr>
+            <td>[0-9]</td><td>Digit from 0 to 9</td>
+            <td>\w</td><td>A word character</td>
+            <td>+</td><td>1 or more</td>
+          </tr>
+          <tr>
+            <td>[xyz]</td><td>x or y or z</td>
+            <td>\d</td><td>A digit</td>
+            <td>?</td><td>0 or 1</td>
+          </tr>
+          <tr>
+            <td>[^xy]</td><td>Not x or y</td>
+            <td>\s</td><td>A whitespace character</td>
+            <td>{4}</td><td>Exactly 4</td>
+          </tr>
+          <tr>
+            <td>(ab|xy)</td><td>ab or xy</td>
+            <td>\b</td><td>Word boundry</td>
+            <td>{4,7}</td><td>Between 4 and 7</td>
+          </tr>
+          <tr>
+            <td>(...)</td><td>Capture group</td>
+            <td>\x47</td><td>Hex character 0x47</td>
+            <td>{4,}</td><td>4 or more</td>
+          </tr>
         </table>
         <div class='clear'></div>
       </div>
@@ -99,7 +105,7 @@
         <input id='pattern' type='text' placeholder='Regular Expression Pattern' />
         <input id='flags' type='text' placeholder='Flags' />
         <textarea id='string' placeholder='Input Strings'></textarea>
-        <div id='wrap'>
+        <div id='notice' class='slade'>
           <input id='error' type='text' readonly />
         </div>
         <pre id='matches'></pre>

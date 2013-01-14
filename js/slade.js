@@ -1,23 +1,44 @@
+/*
+ * Name: slade.js
+ * Date: Jan 2013
+ * Auth: Gavin Lloyd <gavinhungry@gmail.com>
+ * Desc: Set wrapper max-height and content opacity (animate w/ CSS transitions)
+ */
+
 (function($) {
 
   $.fn.sladeDown = function() {
-    var args = Array.prototype.slice.call(arguments);
-    args.unshift({ opacity: 'show', height: 'show' });
-    $.fn.animate.apply(this, args);
+    var content = $('> :first-child', this);
+    if (content.length === 1) {
+      var wHeight = this.outerHeight(true);
+      var cHeight = content.outerHeight(true);
+      var isClosed = cHeight > wHeight;
+
+      this.css({ maxHeight: isClosed ? cHeight + wHeight + 2 : wHeight });
+      content.css({ opacity: 1 });
+    }
     return this;
   };
 
   $.fn.sladeUp = function() {
-    var args = Array.prototype.slice.call(arguments);
-    args.unshift({ opacity: 'hide', height: 'hide' });
-    $.fn.animate.apply(this, args);
+    var content = $('> :first-child', this);
+    if (content.length === 1) {
+      this.css({ maxHeight: 0 });
+      content.css({ opacity: 0 });
+    }
     return this;
   };
 
   $.fn.sladeToggle = function() {
-    var args = Array.prototype.slice.call(arguments);
-    args.unshift({ opacity: 'toggle', height: 'toggle' });
-    $.fn.animate.apply(this, args);
+    var content = $('> :first-child', this);
+    if (content.length === 1) {
+      var wHeight = this.outerHeight(true);
+      var cHeight = content.outerHeight(true);
+      var isClosed = cHeight > wHeight;
+
+      this.css({ maxHeight: isClosed ? cHeight + wHeight + 2 : 0 });
+      content.css({ opacity: isClosed ? 1 : 0 });
+    }
     return this;
   };
 
