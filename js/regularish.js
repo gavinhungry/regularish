@@ -262,11 +262,16 @@ var Regularish = (function() {
           mOutput += _.escape(string) + '<br>';
         }
 
-        this.$matches.html(mOutput === '<br>' ? '' : mOutput);
+        (mOutput.length === 0 || mOutput === '<br>') ?
+          this.$matches.hide().html('') :
+          this.$matches.html(mOutput).show();
 
         Regularish.Template.get('groups', function(template) {
           var gOutput = _.template(template, { groups: groups });
-          this.$groups.html(gOutput === '\n' ? '' : gOutput);
+
+          (gOutput.length === 0 || gOutput === '\n') ?
+            this.$groups.hide().html('') :
+            this.$groups.html(gOutput).show();
         }, this);
       },
 
