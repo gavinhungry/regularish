@@ -163,13 +163,7 @@ input, textarea {
 }
 
 #matches, #groups {
-  &:empty {
-    visibility: hidden;
-    max-height: 0;
-    margin: 0;
-    padding: 0;
-  }
-
+  display: none;
   overflow: auto;
   margin-top: 6px;
   margin-bottom: 0;
