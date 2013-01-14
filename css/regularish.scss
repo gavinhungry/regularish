@@ -47,7 +47,7 @@ body {
   background-color: darken($baseColor, 25%);
   border-bottom: 2px solid darken($baseColor, 35%);
   border-radius: 2px 2px 0 0;
-  
+
   &:hover {
     background-color: darken($baseColor, 20%);
     color: lighten($baseColor, 20%);
@@ -62,15 +62,15 @@ body {
   background-color: darken($baseColor, 25%);
   border-bottom: 2px solid darken($baseColor, 35%);
   border-radius: 2px 2px 0 0;
-  
+
   #reference {
     display: none;
-    
+
     td {
       padding: 4px;
       color: lighten($baseColor, 20%);
       text-shadow: 1px 1px 0 darken($baseColor, 40%);
-    
+
       &:first-child {
         width: 1px;
         color: darken($baseColor, 45%);
@@ -86,16 +86,16 @@ body {
 
 #header {
   margin: 1em 0;
-  
+
   h1 {
     @include noselect();
     font-family: 'Oleo Script Swash Caps', cursive;
     font-size: 72px;
-    
+
     a {
       color: lighten($baseColor, 15%);
       text-shadow: 3px 3px 0 darken($baseColor, 50%);
-      
+
       &:hover {
         color: lighten($baseColor, 25%);
       }
@@ -142,7 +142,7 @@ input, textarea {
 
 #wrap {
   display: none;
-  
+
   #error {
     width: $appWidth - 32px;
     margin-top: 6px;
@@ -162,7 +162,7 @@ input, textarea {
     display: none;
   }
   overflow: auto;
-  
+
   margin-top: 6px;
   margin-bottom: 0;
   padding: 6px;
@@ -175,7 +175,7 @@ input, textarea {
   br:last-child {
     display: none;
   }
-  
+
   span {
     white-space: pre-wrap;
     padding: 1px 0;
@@ -186,20 +186,20 @@ input, textarea {
 ol.group {
   counter-reset: item;
   list-style-type: decimal;
-  
+
   li:before {
     content: 'Match ' counter(item, decimal);
     counter-increment: item;
   }
-  
+
   ol {
     counter-reset: item;
     margin-bottom: 1em;
-  
+
     &:last-child {
       margin-bottom: 0;
     }
-      
+
     li:before {
       content: counter(item, decimal) ': ';
       margin-left: 0.5em;
@@ -211,7 +211,7 @@ ol.group {
   color: lighten($baseColor, 15%);
   text-shadow: 1px 1px 0 darken($baseColor, 45%);
   text-align: center;
-  
+
   a {
     color: #99C;
     font-weight: bold;
