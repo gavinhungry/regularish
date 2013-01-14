@@ -24,8 +24,8 @@ var Regularish = (function() {
         this.regex.on('change:pattern change:flags change:string',
           this.updateRoute, this);
 
-        Backbone.history.start();
         this.render();
+        Backbone.history.start();
       },
 
       // update Regex when route changes
@@ -46,6 +46,10 @@ var Regularish = (function() {
             flags: '',
             string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
           });
+
+        // always update the fields
+        } finally {
+          this.regex.trigger('update');
         }
       },
 
@@ -186,18 +190,21 @@ var Regularish = (function() {
       el: '#regex',
 
       initialize: function() {
+        var that = this;
+
         this.render();
+        this.model.on('update', this.updateFields, this);
         this.model.on('change', this.updateView, this);
 
-        var that = this;
         // update the Regex Model when the input changes
         $('#pattern, #flags, #string').each(function() {
           var input = $(this);
 
           // use only the event that gets here first
           input.on('input keyup', function() {
-            if (input.data('cached') !== input.val()) {
-              input.data('cached', input.val());
+            var value = input.val();
+            if (input.data('cached') !== value) {
+              input.data('cached', value);
               that.updateModel();
             }
           });
@@ -212,16 +219,20 @@ var Regularish = (function() {
         });
       },
 
-      // update the View when the Regex Model changes
-      updateView: function() {
+      updateFields: function() {
         var regex = this.model.attributes;
 
         this.$pattern.val(regex.pattern);
         this.$flags.val(regex.flags);
         this.$string.val(regex.string);
-        this.$error.val(regex.error);
+      },
+
+      // update the View when the Regex Model changes
+      updateView: function() {
+        var regex = this.model.attributes;
 
         // only show the error box if there is an error
+        this.$error.val(regex.error);
         regex.error === undefined ?
           this.$wrap.stop().sladeUp('fast') :
           this.$wrap.sladeDown('fast');
