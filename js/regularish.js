@@ -12,8 +12,7 @@ var Regularish = (function() {
 
         // Regex Quick Reference
         $('#tab').on('click', function() {
-          $('#reference').stop().fadeToggle('fast');
-          $('#drawer').stop().animate({ height: 'toggle' }, 'fast');
+          $('#drawer').sladeToggle();
         });
 
         // create Regex model, we'll only need one
@@ -232,10 +231,14 @@ var Regularish = (function() {
         var regex = this.model.attributes;
 
         // only show the error box if there is an error
-        this.$error.val(regex.error);
-        regex.error === undefined ?
-          this.$wrap.stop().sladeUp('fast') :
-          this.$wrap.sladeDown('fast');
+        if (regex.error === undefined) {
+          this.$notice.sladeUp(function() {
+            this.$error.val(regex.error);
+          });
+        } else {
+          this.$error.val(regex.error);
+          this.$notice.sladeDown();
+        }
 
         var strings = (regex.string).split('\n');
 
@@ -279,7 +282,7 @@ var Regularish = (function() {
         this.$pattern = this.$('#pattern');
         this.$flags   = this.$('#flags');
         this.$string  = this.$('#string');
-        this.$wrap    = this.$('#wrap');
+        this.$notice  = this.$('#notice');
         this.$error   = this.$('#error');
         this.$matches = this.$('#matches');
         this.$groups  = this.$('#groups');

@@ -1,4 +1,4 @@
-$appWidth: 832px;
+$appWidth: 800px;
 $baseColor: #888;
 
 $monospace: 'Menlo', 'Consolas', monospace;
@@ -15,6 +15,26 @@ $font-size: 13px;
 @mixin clickable {
   @include noselect();
   cursor: pointer;
+}
+
+@mixin transition($property: all, $duration: 1s, $timing: ease, $delay: 0s) {
+  transition: $property $duration $timing $delay;
+  -webkit-transition: $property $duration $timing $delay;
+  -moz-transition: $property $duration $timing $delay;
+  -ms-transition: $property $duration $timing $delay;
+  -o-transition: $property $duration $timing $delay;
+}
+
+.slade {
+  @include transition(max-height, 0.2s);
+  overflow: hidden;
+  max-height: 0;
+  padding: 0;
+
+  &> :first-child {
+    @include transition(opacity, 0.2s);
+    opacity: 0;
+  }
 }
 
 a {
@@ -36,9 +56,9 @@ body {
 
 #tab {
   @include clickable();
-  height: 12px;
-  margin-top: -26px;
-  margin-right: 32px;
+  height: 1em;
+  margin-top: -1em;
+  margin-right: 4em;
   padding: 6px;
   float: right;
   color: lighten($baseColor, 10%);
@@ -55,34 +75,36 @@ body {
 }
 
 #drawer {
-  display: none;
-  width: $appWidth - 64px;
+  width: $appWidth - (4 * $font-size);
   margin: auto;
-  padding: 8px;
+  padding: 0;
   background-color: darken($baseColor, 25%);
-  border-bottom: 2px solid darken($baseColor, 35%);
   border-radius: 2px 2px 0 0;
 
   #reference {
-    display: none;
+    padding: 4px;
+    border-bottom: 2px solid darken($baseColor, 35%);
 
     table {
-      width: 33%;
-      float: left;
+      width: 100%;
 
-      td {
-        padding: 4px;
-        color: lighten($baseColor, 20%);
-        text-shadow: 1px 1px 0 darken($baseColor, 40%);
+      tr {
+        &:nth-child(even) {
+          background-color: darken($baseColor, 30%);
+        }
 
-        &:first-child {
-          width: 1px;
-          color: darken($baseColor, 45%);
-          text-shadow: none;
-          font-family: $monospace;
-          font-weight: bold;
-          white-space: nowrap;
-          background-color: lighten($baseColor, 5%);
+        td {
+          padding: 4px;
+          color: lighten($baseColor, 25%);
+          text-shadow: 1px 1px 0 darken($baseColor, 35%);
+
+          &:nth-child(odd) {
+            width: 1px;
+            padding-right: 1em;
+            font-family: $monospace;
+            font-weight: bold;
+            white-space: nowrap;
+          }
         }
       }
     }
@@ -90,7 +112,7 @@ body {
 }
 
 #header {
-  margin: 2em 0;
+  margin: 2em 0 1em;
 
   h1 {
     @include noselect();
@@ -121,7 +143,7 @@ input, textarea {
   font-family: $monospace;
   font-size: $font-size;
   background-color: lighten($baseColor, 40%);
-  border: 2px solid darken($baseColor, 20%);
+  border: 2px solid darken($baseColor, 25%);
   border-radius: 2px;
 }
 
@@ -145,17 +167,13 @@ input, textarea {
   margin-bottom: 0;
 }
 
-#wrap {
-  display: none;
-
-  #error {
-    width: $appWidth - 32px;
-    margin-top: 6px;
-    margin-bottom: 0;
-    background-color: #A77;
-    border-color: #744;
-    color: #111;
-  }
+#error {
+  width: $appWidth - 32px;
+  margin-top: 6px;
+  margin-bottom: 0;
+  background-color: #A77;
+  border-color: #744;
+  color: #111;
 }
 
 #matches {
