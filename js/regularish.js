@@ -2,12 +2,20 @@ var Regularish = (function() {
   'use strict';
 
   return {
-
     App: Backbone.View.extend({
       el: 'body',
 
       initialize: function() {
-      
+
+        // focus the main input element      
+        $('#pattern').trigger('focus');
+
+        // Regex Quick Reference
+        $('#tab').on('click', function() {
+          $('#reference').stop().fadeToggle('fast');
+          $('#drawer').stop().animate({ height: 'toggle' }, 'fast');
+        });
+
         // create Regex model, we'll only need one
         this.regex = new Regularish.Regex();
         
@@ -87,10 +95,10 @@ var Regularish = (function() {
         },
 
         // pass a template to a callback function
-        get: function(id, callback) {
+        get: function(id, callback, context) {
           var template = load(id);
           template.done(function(template) {
-            callback(template);
+            callback.call(context, template);
           });
         }
       };
@@ -241,7 +249,7 @@ var Regularish = (function() {
         Regularish.Template.get('groups', function(template) {
           var gOutput = _.template(template, { groups: groups });
           this.$groups.html(gOutput === '\n' ? '' : gOutput);
-        }.bind(this));
+        }, this);
       },
       
       render: function() {
@@ -258,26 +266,3 @@ var Regularish = (function() {
     })
   };
 })();
-
-
-$(function() {
-
-  // Regex Quick Reference
-  $('#tab').on('click', function() {
-    $('#reference').stop().animate({ opacity: 'toggle' }, 'fast');
-    $('#drawer').stop().animate({ height: 'toggle' }, 'fast');
-  });
-  
-  $('#pattern').trigger('focus');
-
-  yepnope({
-    test: window.atob && window.btoa,
-    nope: 'js/base64.min.js',
-    
-    complete: function() {
-      Regularish.Template.preload(['groups']);
-      new Regularish.App();
-    }
-  });
-  
-});
