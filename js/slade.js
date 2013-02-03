@@ -1,10 +1,3 @@
-/*
- * Name: slade.js
- * Date: Jan 2013
- * Auth: Gavin Lloyd <gavinhungry@gmail.com>
- * Desc: Set wrapper max-height and content opacity (animate w/ CSS transitions)
- */
-
 (function($) {
 
   $.fn.sladeDown = function() {

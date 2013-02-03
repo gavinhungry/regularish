@@ -1,3 +1,9 @@
+/*
+ * Name: Regularish (regularish.com)
+ * Auth: (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
+ * Desc: JavaScript regular expression editor
+ */
+
 var Regularish = (function() {
   'use strict';
 
