@@ -28,30 +28,18 @@
 
     <link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css' />
     <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps' />
-    <link rel='stylesheet' type='text/css' href='css/regularish.min.css' />
+    <link rel='stylesheet' type='text/css' href='/css/regularish.min.css' />
 
     <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/yepnope/1.5.4/yepnope.min.js'></script>
+    <script type='application/javascript' src='/js/reqs.js'></script>
     <script type='application/javascript'>
-      yepnope([
-        {
-          test: window.JSON,
-          nope: '//cdnjs.cloudflare.com/ajax/libs/json3/3.2.4/json3.min.js'
-        }, {
-          test: window.atob && window.btoa,
-          nope: 'js/base64.min.js', // github.com/davidchambers/Base64.js
-        },
-        { load: '//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js' },
-        { load: '//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js' },
-        { load: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/0.9.10/backbone-min.js' },
-        { load: 'js/slade.min.js' },
-        {
-          load: 'js/regularish.min.js',
-          complete: function() {
-            Regularish.Template.preload(['groups']);
-            $(function() { new Regularish.App(); });
-          }
+      yepnope({
+        load: '/js/regularish.min.js',
+        complete: function() {
+          Regularish.Template.preload(['groups']);
+          $(function() { new Regularish.App(); });
         }
-      ]);
+      });
     </script>
   </head>
 
