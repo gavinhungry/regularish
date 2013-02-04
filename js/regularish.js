@@ -1,20 +1,22 @@
 /*
- * Name: Regularish (regularish.com)
- * Auth: (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
- * Desc: JavaScript regular expression editor
+ * Regularish (regularish.com)
+ * JavaScript regular expression editor
+ *
+ * (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
  */
 
 var Regularish = (function() {
   'use strict';
 
   return {
+
+    // Regularish.App
     App: Backbone.View.extend({
       el: 'body',
 
       initialize: function() {
-
         // focus the main input element
-        $('#pattern').trigger('focus');
+        this.$('#pattern').trigger('focus');
 
         // Regex Quick Reference
         this.$('#tab').on('click', _.bind(function() {
@@ -33,46 +35,61 @@ var Regularish = (function() {
         Backbone.history.start();
       },
 
-      // update Regex when route changes
-      updateRegex: function(route) {
+      // gets RegExp object for route
+      getRegex: function(route) {
         try {
           var json = atob(route);
           var options = JSON.parse(json);
-
-          this.regex.set({
+          
+          var regex = {
             pattern: decodeURI(options.p),
             flags:   decodeURI(options.f),
             string:  decodeURI(options.s)
-          });
-
+          };
         } catch(e) {
-          this.regex.set({
+          var regex = {
             pattern: '(\\/) (o,,o) (\\/)',
             flags: '',
-            string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
-          });
-
-        // always update the fields
+            string: 'Need a regular expressionz? Why not Zoidberg?\n/ o,,o /'
+          }        
         } finally {
-          this.regex.trigger('update');
+          return regex;
         }
+      },
+
+      // update Regex when route changes
+      updateRegex: function(route) {
+        var regex = this.getRegex(route);
+        this.regex.set(regex);
+
+        this.regex.trigger('update');
+      },
+
+      getRoute: function(regex) {
+        var options = {
+          p: encodeURI(regex.get('pattern')),
+          f: encodeURI(regex.get('flags')),
+          s: encodeURI(regex.get('string'))
+        };
+
+        // all fields empty, there is no route
+        if (!options.p && !options.f && !options.s) { return ''; }
+
+        var json  = JSON.stringify(options);
+        var route = btoa(json);
+
+        return route;
       },
 
       // update route when Regex changes
       updateRoute: function() {
-        var options = {
-          p: encodeURI(this.regex.get('pattern')),
-          f: encodeURI(this.regex.get('flags')),
-          s: encodeURI(this.regex.get('string'))
-        };
+        var route = this.getRoute(this.regex);
 
-        if (!options.p && !options.f && !options.s) {
+        if (!route) {
           this.router.navigate('', { replace: true });
           return;
         }
 
-        var json  = JSON.stringify(options);
-        var route = btoa(json);
         this.router.navigate('perm/' + route, { replace: true });
       },
 
@@ -82,17 +99,19 @@ var Regularish = (function() {
     }),
 
 
+    // Regularish.Router
     Router: Backbone.Router.extend({
       routes: { 'perm/*splat': 'load' },
     }),
 
 
+    // Regularish.Template
     Template: (function() {
       var templates = {};
 
       // return a template from cache or fetch from the server and defer
       var load = function(id) {
-        var template = templates[id] || $.get('templates/' + id + '.html');
+        var template = templates[id] || $.get('/templates/' + id + '.html');
         templates[id] = template;
         return template;
       };
@@ -114,6 +133,7 @@ var Regularish = (function() {
     })(),
 
 
+    // Regularish.Regex
     Regex: Backbone.Model.extend({
       defaults: {
         pattern: '',
@@ -191,6 +211,7 @@ var Regularish = (function() {
     }),
 
 
+    // Regularish.RegexView
     RegexView: Backbone.View.extend({
       el: '#regex',
 
@@ -202,7 +223,7 @@ var Regularish = (function() {
         this.model.on('change', this.updateView, this);
 
         // update the Regex Model when the input changes
-        $('#pattern, #flags, #string').each(function() {
+        this.$('#pattern, #flags, #string').each(function() {
           var input = $(this);
 
           // use only the event that gets here first
