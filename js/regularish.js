@@ -17,9 +17,9 @@ var Regularish = (function() {
         $('#pattern').trigger('focus');
 
         // Regex Quick Reference
-        $('#tab').on('click', function() {
-          $('#drawer').sladeToggle();
-        });
+        this.$('#tab').on('click', _.bind(function() {
+          this.$('#drawer').sladeToggle();
+        }, this));
 
         // create Regex model, we'll only need one
         this.regex = new Regularish.Regex();
