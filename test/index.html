@@ -4,12 +4,25 @@
     <title>Regularish: Unit Tests</title>
     <meta charset='UTF-8' />
     <link rel='stylesheet' type='text/css' href='//cdnjs.cloudflare.com/ajax/libs/qunit/1.10.0/qunit-1.10.0.css'>
+    <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/qunit/1.10.0/qunit-1.10.0.js'></script>
+
+    <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/yepnope/1.5.4/yepnope.min.js'></script>
+    <script type='application/javascript' src='/js/reqs.js'></script>
+    <script type='application/javascript'>
+      yepnope([
+        {
+          load: '/js/regularish.js',
+          complete: function() {
+            $(function() { });
+          }
+        },
+        'unit.js'
+      ]);
+    </script>
   </head>
 
   <body>
     <div id='qunit'></div>
     <div id='qunit-fixture'></div>
-    <script type='application/javascript' src='//cdnjs.cloudflare.com/ajax/libs/qunit/1.10.0/qunit-1.10.0.js'></script>
-    <script type='application/javascript' src='tests.js'></script>
   </body>
 </html>
