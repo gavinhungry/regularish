@@ -1,7 +1,5 @@
 /*
- * Regularish (regularish.com)
- * JavaScript regular expression editor
- *
+ * Regularish: a JavaScript regular expression editor
  * (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
  */
 
