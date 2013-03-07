@@ -117,21 +117,30 @@ body {
 }
 
 #header {
-  margin: 2em 0 1em;
+  margin: 2em 0.5em 1em;
+  font-family: 'Oleo Script Swash Caps', cursive;
 
   h1 {
     @include noselect();
-    font-family: 'Oleo Script Swash Caps', cursive;
-    font-size: 72px;
+    display: inline-block;
+    font-size: 4em;
 
     a {
-      color: lighten($baseColor, 15%);
+      color: lighten($baseColor, 20%);
       text-shadow: 3px 3px 0 darken($baseColor, 50%);
 
       &:hover {
-        color: lighten($baseColor, 25%);
+        color: lighten($baseColor, 30%);
+        text-shadow: 3px 3px 0 darken($baseColor, 45%);
       }
     }
+  }
+
+  h2 {
+    display: inline-block;
+    font-size: 2.5em;
+    color: $baseColor;
+    text-shadow: 2px 2px 0 darken($baseColor, 50%);
   }
 }
 
