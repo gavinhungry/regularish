@@ -3,12 +3,12 @@
  * (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
  */
 
-$appWidth: 800px;
+$appWidth: 750px;
 $baseColor: #888;
 
 $monospace: 'Menlo', 'Consolas', monospace;
-$sans-serif: 'Ubuntu', 'Segoe UI', sans-serif;
-$font-size: 13px;
+$sans-serif: 'Ubuntu', 'Lucida Grande', 'Segoe UI', sans-serif;
+$font-size: 12px;
 
 @mixin noselect() {
   user-select: none;
@@ -167,7 +167,7 @@ input, textarea {
 #string {
   resize: vertical;
   width: $appWidth - 32px;
-  height: 128px;
+  height: 144px;
   margin-top: 6px;
   margin-bottom: 0;
 }
@@ -236,6 +236,7 @@ ol.group {
   color: lighten($baseColor, 15%);
   text-shadow: 1px 1px 0 darken($baseColor, 45%);
   text-align: center;
+  font-size: $font-size + 2px;
 
   a {
     $color: #89A;

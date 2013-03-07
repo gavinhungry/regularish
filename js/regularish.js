@@ -48,7 +48,7 @@ var Regularish = (function() {
           var regex = {
             pattern: '(\\/) (o,,o) (\\/)',
             flags: '',
-            string: 'Need a regular expressionz? Why not Zoidberg?\n/ o,,o /'
+            string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
           }        
         } finally {
           return regex;
