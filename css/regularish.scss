@@ -121,7 +121,6 @@ body {
   font-family: 'Oleo Script Swash Caps', cursive;
 
   h1 {
-    @include noselect();
     display: inline-block;
     font-size: 4em;
 
