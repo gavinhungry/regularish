@@ -20,7 +20,7 @@ test('App.getRegex returns valid regex from route', function() {
   deepEqual(regex, {
     pattern: '(\\/) (o,,o) (\\/)',
     flags: '',
-    string: 'Need a regular expressionz? Why not Zoidberg?\n/ o,,o /'
+    string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
   }, 'invalid route returns the Zoidberg regex');
 });
 
