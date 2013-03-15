@@ -35,17 +35,19 @@ var Regularish = (function() {
 
       // gets RegExp object for route
       getRegex: function(route) {
+        var regex;
+
         try {
           var json = atob(route);
           var options = JSON.parse(json);
           
-          var regex = {
+          regex = {
             pattern: decodeURI(options.p),
             flags:   decodeURI(options.f),
             string:  decodeURI(options.s)
           };
         } catch(e) {
-          var regex = {
+          regex = {
             pattern: '(\\/) (o,,o) (\\/)',
             flags: '',
             string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
