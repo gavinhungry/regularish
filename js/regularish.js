@@ -1,6 +1,6 @@
-/*
+/**
+ * @license (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
  * Regularish: a JavaScript regular expression editor
- * (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
  */
 
 var Regularish = (function() {
@@ -101,7 +101,7 @@ var Regularish = (function() {
 
     // Regularish.Router
     Router: Backbone.Router.extend({
-      routes: { 'perm/*splat': 'load' },
+      routes: { 'perm/*splat': 'load' }
     }),
 
 

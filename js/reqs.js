@@ -1,6 +1,6 @@
 /*
- * Regularish: a JavaScript regular expression editor
  * (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
+ * Regularish: a JavaScript regular expression editor
  */
 
 yepnope([
