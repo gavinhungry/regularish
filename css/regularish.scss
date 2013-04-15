@@ -59,6 +59,13 @@ body {
   overflow-y: scroll;
 }
 
+#ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+}
+
 #tab {
   @include clickable();
   height: 1em;
