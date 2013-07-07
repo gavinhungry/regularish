@@ -3,41 +3,41 @@
  * (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
  */
 
-$appWidth: 750px;
-$baseColor: #888;
+@appWidth: 750px;
+@baseColor: #888;
 
-$monospace: 'Menlo', 'Consolas', monospace;
-$sans-serif: 'Ubuntu', 'Lucida Grande', 'Segoe UI', sans-serif;
-$font-size: 12px;
+@monospace: 'Menlo', 'Consolas', monospace;
+@sans-serif: 'Ubuntu', 'Lucida Grande', 'Segoe UI', sans-serif;
+@font-size: 12px;
 
-@mixin noselect() {
+.noselect() {
   user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
 }
 
-@mixin clickable {
-  @include noselect();
+.clickable() {
+  .noselect();
   cursor: pointer;
 }
 
-@mixin transition($property: all, $duration: 1s, $timing: ease, $delay: 0s) {
-  transition: $property $duration $timing $delay;
-  -webkit-transition: $property $duration $timing $delay;
-  -moz-transition: $property $duration $timing $delay;
-  -ms-transition: $property $duration $timing $delay;
-  -o-transition: $property $duration $timing $delay;
+.transition(@property: all, @duration: 1s, @timing: ease, @delay: 0s) {
+  transition: @property @duration @timing @delay;
+  -webkit-transition: @property @duration @timing @delay;
+  -moz-transition: @property @duration @timing @delay;
+  -ms-transition: @property @duration @timing @delay;
+  -o-transition: @property @duration @timing @delay;
 }
 
 .slade {
-  @include transition(max-height, 0.2s);
+  .transition(max-height, 0.2s);
   overflow: hidden;
   max-height: 0;
   padding: 0;
 
   &> :first-child {
-    @include transition(opacity, 0.2s);
+    .transition(opacity, 0.2s);
     opacity: 0;
   }
 }
@@ -51,11 +51,11 @@ a {
 }
 
 body {
-  width: $appWidth;
+  width: @appWidth;
   margin: 0 auto 2em;
-  font-family: $sans-serif;
-  font-size: $font-size;
-  background-color: darken($baseColor, 40%);
+  font-family: @sans-serif;
+  font-size: @font-size;
+  background-color: darken(@baseColor, 40%);
   overflow-y: scroll;
 }
 
@@ -67,53 +67,53 @@ body {
 }
 
 #tab {
-  @include clickable();
+  .clickable();
   height: 1em;
   margin-top: -1em;
   margin-right: 4em;
   padding: 6px;
   float: right;
-  color: lighten($baseColor, 10%);
-  text-shadow: 1px 1px 0 darken($baseColor, 35%);
+  color: lighten(@baseColor, 10%);
+  text-shadow: 1px 1px 0 darken(@baseColor, 35%);
   font-weight: bold;
-  background-color: darken($baseColor, 25%);
-  border-bottom: 2px solid darken($baseColor, 35%);
+  background-color: darken(@baseColor, 25%);
+  border-bottom: 2px solid darken(@baseColor, 35%);
   border-radius: 2px 2px 0 0;
 
   &:hover {
-    background-color: darken($baseColor, 20%);
-    color: lighten($baseColor, 20%);
+    background-color: darken(@baseColor, 20%);
+    color: lighten(@baseColor, 20%);
   }
 }
 
 #drawer {
-  width: $appWidth - (4 * $font-size);
+  width: @appWidth - (4 * @font-size);
   margin: auto;
   padding: 0;
-  background-color: darken($baseColor, 25%);
+  background-color: darken(@baseColor, 25%);
   border-radius: 2px 2px 0 0;
 
   #reference {
     padding: 4px;
-    border-bottom: 2px solid darken($baseColor, 35%);
+    border-bottom: 2px solid darken(@baseColor, 35%);
 
     table {
       width: 100%;
 
       tr {
         &:nth-child(even) {
-          background-color: darken($baseColor, 20%);
+          background-color: darken(@baseColor, 20%);
         }
 
         td {
           padding: 4px;
-          color: lighten($baseColor, 25%);
-          text-shadow: 1px 1px 0 darken($baseColor, 35%);
+          color: lighten(@baseColor, 25%);
+          text-shadow: 1px 1px 0 darken(@baseColor, 35%);
 
           &:nth-child(odd) {
             width: 1px;
             padding-right: 1em;
-            font-family: $monospace;
+            font-family: @monospace;
             font-weight: bold;
             white-space: nowrap;
           }
@@ -132,12 +132,12 @@ body {
     font-size: 4em;
 
     a {
-      color: lighten($baseColor, 20%);
-      text-shadow: 3px 3px 0 darken($baseColor, 50%);
+      color: lighten(@baseColor, 20%);
+      text-shadow: 3px 3px 0 darken(@baseColor, 50%);
 
       &:hover {
-        color: lighten($baseColor, 30%);
-        text-shadow: 3px 3px 0 darken($baseColor, 45%);
+        color: lighten(@baseColor, 30%);
+        text-shadow: 3px 3px 0 darken(@baseColor, 45%);
       }
     }
   }
@@ -145,31 +145,31 @@ body {
   h2 {
     display: inline-block;
     font-size: 2.5em;
-    color: $baseColor;
-    text-shadow: 2px 2px 0 darken($baseColor, 50%);
+    color: @baseColor;
+    text-shadow: 2px 2px 0 darken(@baseColor, 50%);
   }
 }
 
 #app {
   margin: 0 0 2em;
   padding: 8px;
-  background-color: $baseColor;
-  box-shadow: 4px 4px 0 darken($baseColor, 45%);
+  background-color: @baseColor;
+  box-shadow: 4px 4px 0 darken(@baseColor, 45%);
   border-radius: 2px;
 }
 
 input, textarea {
   padding: 6px;
-  font-family: $monospace;
-  font-size: $font-size;
-  background-color: lighten($baseColor, 40%);
-  border: 2px solid darken($baseColor, 25%);
+  font-family: @monospace;
+  font-size: @font-size;
+  background-color: lighten(@baseColor, 40%);
+  border: 2px solid darken(@baseColor, 25%);
   border-radius: 2px;
 }
 
 #pattern {
   float: left;
-  width: $appWidth - 181px;
+  width: @appWidth - 181px;
   margin: 0 2px 0 0;
 }
 
@@ -181,14 +181,14 @@ input, textarea {
 
 #string {
   resize: vertical;
-  width: $appWidth - 32px;
+  width: @appWidth - 32px;
   height: 112px;
   margin-top: 6px;
   margin-bottom: 0;
 }
 
 #error {
-  width: $appWidth - 32px;
+  width: @appWidth - 32px;
   margin-top: 6px;
   margin-bottom: 0;
   background-color: #A77;
@@ -206,10 +206,10 @@ input, textarea {
   margin-top: 6px;
   margin-bottom: 0;
   padding: 6px;
-  color: lighten($baseColor, 40%);
-  font-family: $monospace;
-  line-height: $font-size + 6px;
-  background-color: darken($baseColor, 40%);
+  color: lighten(@baseColor, 40%);
+  font-family: @monospace;
+  line-height: @font-size + 6px;
+  background-color: darken(@baseColor, 40%);
   border-radius: 2px;
 
   br:last-child {
@@ -248,22 +248,22 @@ ol.group {
 }
 
 #footer {
-  color: lighten($baseColor, 15%);
-  text-shadow: 1px 1px 0 darken($baseColor, 45%);
+  color: lighten(@baseColor, 15%);
+  text-shadow: 1px 1px 0 darken(@baseColor, 45%);
   text-align: center;
-  font-size: $font-size + 2px;
+  font-size: @font-size + 2px;
 
   a {
-    $color: #89A;
-    color: $color;
+    @color: #89A;
+    color: @color;
     font-weight: bold;
 
     &:hover {
-      color: lighten($color, 10%);
+      color: lighten(@color, 10%);
     }
 
     &:active {
-      color: darken($color, 10%);
+      color: darken(@color, 10%);
     }
   }
 }
