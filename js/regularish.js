@@ -289,10 +289,10 @@ var Regularish = (function() {
             string = string.slice(match.to);
           }
 
-          mOutput += _.escape(string) + '<br>';
+          mOutput += _.escape(string) + '\n';
         }
 
-        (mOutput.length === 0 || mOutput === '<br>') ?
+        (mOutput.length === 0 || mOutput === '\n') ?
           this.$matches.hide().html('') :
           this.$matches.html(mOutput).show();
 
