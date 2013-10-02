@@ -6,7 +6,7 @@
 yepnope([
   {
     test: window.JSON,
-    nope: '//cdnjs.cloudflare.com/ajax/libs/json3/3.2.4/json3.min.js'
+    nope: '//cdnjs.cloudflare.com/ajax/libs/json3/3.2.5/json3.min.js'
   }, {
     test: window.atob && window.btoa,
     nope: '/js/base64.min.js' // github.com/davidchambers/Base64.js
