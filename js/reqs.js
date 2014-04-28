@@ -13,6 +13,6 @@ yepnope([
   },
   '//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js',
   '//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js',
-  '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js',
+  '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js',
   '/js/slade.min.js'
 ]);
