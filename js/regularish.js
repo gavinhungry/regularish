@@ -297,7 +297,7 @@ var Regularish = (function() {
           this.$matches.html(mOutput).show();
 
         Regularish.Template.get('groups', function(template) {
-          var gOutput = _.template(template, { groups: groups });
+          var gOutput = _.template(template)({ groups: groups });
 
           (gOutput.length === 0 || gOutput === '\n') ?
             this.$groups.hide().html('') :
