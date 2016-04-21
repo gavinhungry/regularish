@@ -1,6 +1,6 @@
 /**
- * @license (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
  * Regularish: a JavaScript regular expression editor
+ * https://github.com/gavinhungry/regularish
  */
 
 var Regularish = (function() {

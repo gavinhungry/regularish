@@ -1,6 +1,6 @@
-/*
+/**
  * Regularish: a JavaScript regular expression editor
- * (C) 2013 Gavin Lloyd <gavinhungry@gmail.com>
+ * https://github.com/gavinhungry/regularish
  */
 
 @appWidth: 750px;
@@ -8,7 +8,7 @@
 
 @monospace: 'Menlo', 'Consolas', monospace;
 @sans-serif: 'Ubuntu', 'Lucida Grande', 'Segoe UI', sans-serif;
-@font-size: 12px;
+@font-size: 11px;
 
 .noselect() {
   user-select: none;
@@ -165,6 +165,10 @@ input, textarea {
   background-color: lighten(@baseColor, 40%);
   border: 2px solid darken(@baseColor, 25%);
   border-radius: 1px;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 #pattern {
