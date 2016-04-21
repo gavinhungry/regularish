@@ -40,7 +40,7 @@ var Regularish = (function() {
         try {
           var json = atob(route);
           var options = JSON.parse(json);
-          
+
           regex = {
             pattern: decodeURI(options.p),
             flags:   decodeURI(options.f),
@@ -51,7 +51,7 @@ var Regularish = (function() {
             pattern: '(\\/) (o,,o) (\\/)',
             flags: '',
             string: 'Need a regular expression? Why not Zoidberg?\n/ o,,o /'
-          }        
+          };
         } finally {
           return regex;
         }
