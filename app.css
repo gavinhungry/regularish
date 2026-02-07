@@ -151,6 +151,11 @@ a:hover {
   font-size: 12px;
 }
 
+.button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 .button-warning {
   border-color: rgba(252, 165, 165, 0.6);
   color: #fca5a5;
@@ -168,13 +173,8 @@ a:hover {
 }
 
 .button-github:hover {
-  border-color: #a78bfa !important;
-  color: #ede9fe !important;
-}
-
-.button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  border-color: #a78bfa;
+  color: #ede9fe;
 }
 
 .button.button-confirm {
