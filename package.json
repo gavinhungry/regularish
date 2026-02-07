@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "esbuild app.js --bundle --minify --sourcemap --outfile=app.bundle.js --loader:.js=jsx"
+    "build": "esbuild app.js --bundle --minify --sourcemap --outfile=app.bundle.js --loader:.js=jsx",
+    "serve": "python -m http.server 8080"
   },
   "dependencies": {
     "react": "^18.2.0",
