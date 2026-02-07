@@ -404,10 +404,15 @@ const ConfirmButton = ({ label, onConfirm, className, timeout = 3000 }) => {
     timerRef.current = setTimeout(() => setConfirming(false), timeout);
   };
 
+  const handleBlur = () => {
+    clearTimeout(timerRef.current);
+    setConfirming(false);
+  };
+
   useEffect(() => () => clearTimeout(timerRef.current), []);
 
   return (
-    <button className={`${className}${confirming ? ' button-confirm' : ''}`} type='button' onClick={handleClick}>
+    <button className={`${className}${confirming ? ' button-confirm' : ''}`} type='button' onClick={handleClick} onBlur={handleBlur}>
       {confirming ? 'Confirm?' : label}
     </button>
   );
