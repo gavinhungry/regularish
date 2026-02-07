@@ -643,18 +643,61 @@ textarea {
 
   #app {
     min-height: auto;
+    height: auto;
+    padding: 16px 12px 32px;
   }
 
   #app .app-inner {
     height: auto;
-    padding-bottom: 48px;
+    padding-bottom: 0;
   }
-  
+
   .header {
-    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .brand h1 {
+    font-size: 36px;
+  }
+
+  .brand p {
+    font-size: 13px;
+  }
+
+  .header-actions {
+    width: 100%;
+    justify-content: right;
+  }
+
+  .panel {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .layout {
+    gap: 16px;
+  }
+
+  .inline-fields {
+    grid-template-columns: minmax(0, 1fr) auto 70px;
+    gap: 8px;
   }
 
   textarea {
     min-height: 120px;
+  }
+
+  .reference-grid {
+    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+    gap: 8px;
+  }
+
+  .reference-card {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .footer {
+    margin-top: 20px;
   }
 }
