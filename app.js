@@ -264,6 +264,7 @@ const Tooltip = ({ title, detail, token, example, snippet, snippetLabel, variant
 
 const TooltipAnchor = ({ children, title, detail, token, example, snippet, snippetLabel, variant }) => {
   const anchorRef = useRef(null);
+  const [touchActive, setTouchActive] = useState(false);
 
   const adjustTooltip = () => {
     if (!anchorRef.current) {
@@ -339,12 +340,39 @@ const TooltipAnchor = ({ children, title, detail, token, example, snippet, snipp
     const nextRect = tooltip.getBoundingClientRect();
   };
 
+  const dismissTouch = () => setTouchActive(false);
+
+  const handleTouchStart = () => {
+    setTouchActive(true);
+    requestAnimationFrame(adjustTooltip);
+  };
+
+  useEffect(() => {
+    if (!touchActive) {
+      return;
+    }
+
+    const handleTouchOutside = (event) => {
+      if (anchorRef.current && !anchorRef.current.contains(event.target)) {
+        dismissTouch();
+      }
+    };
+
+    window.addEventListener('scroll', dismissTouch, true);
+    document.addEventListener('touchstart', handleTouchOutside);
+    return () => {
+      window.removeEventListener('scroll', dismissTouch, true);
+      document.removeEventListener('touchstart', handleTouchOutside);
+    };
+  }, [touchActive]);
+
   return (
     <span
-      className='tooltip-anchor'
+      className={`tooltip-anchor${touchActive ? ' tooltip-touch-active' : ''}`}
       ref={anchorRef}
       onMouseEnter={adjustTooltip}
       onFocus={adjustTooltip}
+      onTouchStart={handleTouchStart}
     >
       {children}
       <Tooltip
@@ -357,6 +385,31 @@ const TooltipAnchor = ({ children, title, detail, token, example, snippet, snipp
         variant={variant}
       />
     </span>
+  );
+};
+
+const ConfirmButton = ({ label, onConfirm, className, timeout = 3000 }) => {
+  const [confirming, setConfirming] = useState(false);
+  const timerRef = useRef(null);
+
+  const handleClick = () => {
+    if (confirming) {
+      clearTimeout(timerRef.current);
+      setConfirming(false);
+      onConfirm();
+      return;
+    }
+
+    setConfirming(true);
+    timerRef.current = setTimeout(() => setConfirming(false), timeout);
+  };
+
+  useEffect(() => () => clearTimeout(timerRef.current), []);
+
+  return (
+    <button className={`${className}${confirming ? ' button-confirm' : ''}`} type='button' onClick={handleClick}>
+      {confirming ? 'Confirm?' : label}
+    </button>
   );
 };
 
@@ -856,11 +909,8 @@ const App = () => {
   }, [pattern, flags, input]);
 
   useEffect(() => {
-    if (patternRef.current) {
+    if (patternRef.current && !decodeState()) {
       patternRef.current.focus();
-      if (typeof patternRef.current.setSelectionRange === 'function') {
-        patternRef.current.setSelectionRange(0, patternRef.current.value.length);
-      }
     }
   }, []);
 
@@ -964,10 +1014,6 @@ const App = () => {
     if (!inputApplied) {
       setInput('');
     }
-
-    if (patternRef.current) {
-      patternRef.current.focus();
-    }
   };
 
   return (
@@ -994,8 +1040,8 @@ const App = () => {
           <div className='panel-header'>
             <h2>Build your regex</h2>
             <div className='panel-actions'>
-              <button className='button' type='button' onClick={handleDemo}>Demo</button>
-              <button className='button button-warning' type='button' onClick={handleClear}>Clear</button>
+              <ConfirmButton className='button' label='Demo' onConfirm={handleDemo} />
+              <ConfirmButton className='button button-warning' label='Clear' onConfirm={handleClear} />
             </div>
           </div>
           <div className='panel-body'>

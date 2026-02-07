@@ -177,6 +177,18 @@ a:hover {
   color: var(--accent);
 }
 
+.button.button-confirm {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.button-warning.button-confirm {
+  background: #fca5a5;
+  border-color: #fca5a5;
+  color: var(--bg);
+}
+
 .layout {
   display: grid;
   grid-template-columns: minmax(320px, 1fr) minmax(320px, 1fr);
@@ -619,7 +631,14 @@ textarea {
   white-space: nowrap;
 }
 
-.tooltip-anchor:hover .tooltip {
+@media (hover: hover) {
+  .tooltip-anchor:hover .tooltip {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tooltip-anchor.tooltip-touch-active .tooltip {
   opacity: 1;
   transform: translateY(0);
 }
