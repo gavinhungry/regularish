@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "esbuild app.jsx --bundle --minify --sourcemap --outfile=app.bundle.js --loader:.js=jsx",
-    "serve": "python -m http.server 8080"
+    "serve": "python -m http.server 8080",
+    "deploy": "dotenv -- sh -c 'scp app.bundle.js{,.map} app.css index.html favicon.svg ${DEPLOY_TARGET}'"
   },
 
   "dependencies": {
@@ -13,6 +14,7 @@
   },
 
   "devDependencies": {
+    "dotenv-cli": "11.0.x",
     "esbuild": "0.27.x"
   }
 }
