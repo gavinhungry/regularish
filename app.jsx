@@ -187,7 +187,7 @@ const FLAG_DESCRIPTIONS = {
 
 const DEMO_PATTERN = '(\\/) (o,,o) (\\/)';
 const DEMO_FLAGS = 'g';
-const DEMO_INPUT = 'Need a regular expression? Why not Zoidberg?\n/ o,,o /\n';
+const DEMO_INPUT = 'Need a regular expression?\nWhy not Zoidberg?\n\n/ o,,o /\n';
 
 const parseExampleParts = (example) => {
   const parts = [];
