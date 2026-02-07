@@ -6,11 +6,13 @@
     "build": "esbuild app.jsx --bundle --minify --sourcemap --outfile=app.bundle.js --loader:.js=jsx",
     "serve": "python -m http.server 8080"
   },
+
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "19.2.x",
+    "react-dom": "19.2.x"
   },
+
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "esbuild": "0.27.x"
   }
 }
