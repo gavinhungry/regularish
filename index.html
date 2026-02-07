@@ -16,7 +16,7 @@
        |:|  |      \:\__\      \::/  /     \::/  /     \:\__\    /:/  /     |:|  |      \:\__\      \::/  /      /:/  /
         \|__|       \/__/       \/__/       \/__/       \/__/    \/__/       \|__|       \/__/       \/__/       \/__/
 
-    Regularish: a JavaScript regular expression editor
+    Regularish: a JavaScript regex editor
     https://github.com/gavinhungry/regularish
     -->
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -24,91 +24,15 @@
     <meta name='description' content='Rubular-inspired JavaScript regular expression editor'>
     <meta name='keywords' content='regular expression, regex, regex editor, javascript'>
 
-    <link rel='stylesheet' type='text/css' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
-    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Oleo+Script+Swash+Caps'>
-    <link rel='stylesheet' type='text/css' href='css/regularish.min.css'>
+    <link rel='icon' href='favicon.svg' type='image/svg+xml'>
+    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&family=JetBrains+Mono:wght@400;600&display=swap'>
+    <link rel='stylesheet' type='text/css' href='app.css'>
 
-    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js'></script>
-    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js'></script>
-    <script type='application/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone-min.js'></script>
-    <script type='application/javascript' src='js/slade.min.js'></script>
-    <script type='application/javascript' src='js/regularish.min.js'></script>
-
-    <script type='application/javascript'>
-      Regularish.Template.preload(['groups']);
-      $(function() {
-        new Regularish.App();
-      });
-    </script>
+    <script type='module' src='app.bundle.js'></script>
   </head>
 
   <body>
-    <div id='header'>
-      <h1><a href='/'>Regularish</a></h1>
-      <h2>: a JavaScript regex editor</h2>
-    </div>
+    <div id='app'></div>
 
-    <div id='tab'>Regex Reference</div>
-    <div id='drawer' class='slade'>
-      <div id='reference'>
-        <table>
-          <tr>
-            <td>[a-m]</td><td>Character from a to m</td>
-            <td>.</td><td>Any character</td>
-            <td>*</td><td>0 or more</td>
-          </tr>
-          <tr>
-            <td>[N-Z]</td><td>Character from N to Z</td>
-            <td>\w</td><td>Any word character</td>
-            <td>+</td><td>1 or more</td>
-          </tr>
-          <tr>
-            <td>[0-6]</td><td>Digit from 0 to 6</td>
-            <td>\d</td><td>Any digit</td>
-            <td>?</td><td>0 or 1</td>
-          </tr>
-          <tr>
-            <td>[xyz]</td><td>x or y or z</td>
-            <td>\s</td><td>Any whitespace character</td>
-            <td>{4}</td><td>Exactly 4</td>
-          </tr>
-          <tr>
-            <td>[^a]</td><td>Not a</td>
-            <td>\b</td><td>Word boundry</td>
-            <td>{4,}</td><td>4 or more</td>
-          </tr>
-          <tr>
-            <td>[^xy]</td><td>Not x or y</td>
-            <td>\x52</td><td>Hex character 0x52 (R)</td>
-            <td>{4,7}</td><td>Between 4 and 7</td>
-          </tr>
-          <tr>
-            <td>(ab|xy)</td><td>ab or xy</td>
-            <td>\130</td><td>Octal character 130 (X)</td>
-            <td>(...)</td><td>Capture group</td>
-          </tr>
-        </table>
-        <div class='clear'></div>
-      </div>
-    </div>
-
-    <div id='app'>
-      <div id='regex'>
-        <input id='pattern' type='text' placeholder='Regular Expression Pattern'>
-        <input id='flags' type='text' placeholder='Flags'>
-        <textarea id='string' placeholder='Input Strings'></textarea>
-        <div id='notice' class='slade'>
-          <input id='error' type='text' readonly>
-        </div>
-        <pre id='matches'></pre>
-        <div id='groups'></div>
-      </div>
-    </div>
-
-    <div id='footer'>
-      Created by <a href='https://gavinhungry.com'>Gavin Lloyd</a>.
-      Inspired by <a href='http://rubular.com'>Rubular</a>.
-      Code on <a href='https://github.com/gavinhungry/regularish'>GitHub</a>.
-    </div>
   </body>
 </html>

@@ -1,4 +1,7 @@
 Regularish
 ==========
-Regularish is a JavaScript regular expression editor,
-inspired by [Rubular](http://rubular.com/).
+A JavaScript regex editor inspired by [Rubular](https://rubular.com).
+
+License
+-------
+This software is released under the terms of the **MIT license**. See `LICENSE`.
