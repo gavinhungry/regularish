@@ -1,7 +1,13 @@
 {
   "name": "regularish",
+  "version": "0.0.0",
+  "author": "Gavin Lloyd <gavinhungry@gmail.com>",
+  "description": "A JavaScript regex editor inspired by Rubular",
+  "license": "MIT",
+
   "private": true,
   "type": "module",
+
   "scripts": {
     "build": "esbuild app.jsx --bundle --minify --sourcemap --outfile=app.bundle.js --loader:.js=jsx",
     "serve": "python -m http.server 8080",
